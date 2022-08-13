@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Projects2022/JobsMain/app/src/main/res/layout/activity_archive.xml" value="0.19947916666666668" />
+        <entry key="..\:/Projects2022/JobsMain/app/src/main/res/layout/activity_base.xml" value="0.19947916666666668" />
+        <entry key="..\:/Projects2022/JobsMain/app/src/main/res/layout/activity_base_user.xml" value="0.19947916666666668" />
+        <entry key="..\:/Projects2022/JobsMain/app/src/main/res/layout/activity_login.xml" value="0.25" />
+        <entry key="..\:/Projects2022/JobsMain/app/src/main/res/layout/activity_main.xml" value="0.19947916666666668" />
+        <entry key="..\:/Projects2022/JobsMain/app/src/main/res/layout/activity_preregister.xml" value="0.19947916666666668" />
+        <entry key="..\:/Projects2022/JobsMain/app/src/main/res/layout/activity_sign_up.xml" value="0.25" />
+        <entry key="..\:/Projects2022/JobsMain/app/src/main/res/menu/navigation_user_menu.xml" value="0.19947916666666668" />
+        <entry key="..\:/jobs/app/src/main/res/drawable-v24/ic_baseline_post_add.xml" value="0.1995" />
+        <entry key="..\:/jobs/app/src/main/res/drawable-v24/ic_edit.xml" value="0.1" />
+        <entry key="..\:/jobs/app/src/main/res/drawable-v24/text.xml" value="0.1995" />
+        <entry key="..\:/jobs/app/src/main/res/drawable-v24/tt.xml" value="0.1" />
+        <entry key="..\:/jobs/app/src/main/res/drawable/bio.xml" value="0.1995" />
+        <entry key="..\:/jobs/app/src/main/res/drawable/ic_baseline_home.xml" value="0.109" />
+        <entry key="..\:/jobs/app/src/main/res/drawable/ic_bookmark_border.xml" value="0.109" />
+        <entry key="..\:/jobs/app/src/main/res/drawable/ic_logo.xml" value="0.109" />
+        <entry key="..\:/jobs/app/src/main/res/drawable/ic_notif.xml" value="0.109" />
+        <entry key="..\:/jobs/app/src/main/res/drawable/ic_person.xml" value="0.109" />
+        <entry key="..\:/jobs/app/src/main/res/drawable/ic_save.xml" value="0.109" />
+        <entry key="..\:/jobs/app/src/main/res/drawable/ic_task.xml" value="0.1995" />
+        <entry key="..\:/jobs/app/src/main/res/drawable/rounded_button.xml" value="0.109" />
+        <entry key="..\:/jobs/app/src/main/res/drawable/shape_toolbar.xml" value="0.109" />
+        <entry key="..\:/jobs/app/src/main/res/drawable/tv_bg.xml" value="0.109" />
+        <entry key="..\:/jobs/app/src/main/res/drawable/userbackground.xml" value="0.1995" />
+        <entry key="..\:/jobs/app/src/main/res/layout/OpenTalab_item.xml" value="0.1" />
+        <entry key="..\:/jobs/app/src/main/res/layout/activity_add_talab.xml" value="0.15942028985507245" />
+        <entry key="..\:/jobs/app/src/main/res/layout/activity_archive.xml" value="0.1" />
+        <entry key="..\:/jobs/app/src/main/res/layout/activity_base.xml" value="0.15942028985507245" />
+        <entry key="..\:/jobs/app/src/main/res/layout/activity_base_user.xml" value="0.67" />
+        <entry key="..\:/jobs/app/src/main/res/layout/activity_categories.xml" value="0.15942028985507245" />
+        <entry key="..\:/jobs/app/src/main/res/layout/activity_complete_info.xml" value="0.25" />
+        <entry key="..\:/jobs/app/src/main/res/layout/activity_login.xml" value="0.15942028985507245" />
+        <entry key="..\:/jobs/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/jobs/app/src/main/res/layout/activity_preregister.xml" value="0.15942028985507245" />
+        <entry key="..\:/jobs/app/src/main/res/layout/activity_profeeional.xml" value="0.15942028985507245" />
+        <entry key="..\:/jobs/app/src/main/res/layout/activity_sign_up.xml" value="0.22" />
+        <entry key="..\:/jobs/app/src/main/res/layout/activity_splash.xml" value="0.15942028985507245" />
+        <entry key="..\:/jobs/app/src/main/res/layout/activity_talab_done.xml" value="0.15942028985507245" />
+        <entry key="..\:/jobs/app/src/main/res/layout/activity_tlabaty.xml" value="0.15942028985507245" />
+        <entry key="..\:/jobs/app/src/main/res/layout/activity_user_info.xml" value="0.22" />
+        <entry key="..\:/jobs/app/src/main/res/layout/archive_item.xml" value="0.15942028985507245" />
+        <entry key="..\:/jobs/app/src/main/res/layout/category_item.xml" value="0.15942028985507245" />
+        <entry key="..\:/jobs/app/src/main/res/layout/fragment_add_work_user.xml" value="0.1" />
+        <entry key="..\:/jobs/app/src/main/res/layout/fragment_archive.xml" value="0.1" />
+        <entry key="..\:/jobs/app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="..\:/jobs/app/src/main/res/layout/fragment_home_user.xml" value="0.1" />
+        <entry key="..\:/jobs/app/src/main/res/layout/fragment_notification.xml" value="0.1" />
+        <entry key="..\:/jobs/app/src/main/res/layout/fragment_profile.xml" value="0.33" />
+        <entry key="..\:/jobs/app/src/main/res/layout/fragment_profile_user.xml" value="0.15942028985507245" />
+        <entry key="..\:/jobs/app/src/main/res/layout/fragment_talabaty.xml" value="0.1" />
+        <entry key="..\:/jobs/app/src/main/res/layout/fragment_talabaty_user.xml" value="0.15942028985507245" />
+        <entry key="..\:/jobs/app/src/main/res/layout/notify_item.xml" value="0.22" />
+        <entry key="..\:/jobs/app/src/main/res/layout/search_toolbar.xml" value="0.15942028985507245" />
+        <entry key="..\:/jobs/app/src/main/res/layout/show_item.xml" value="0.33" />
+        <entry key="..\:/jobs/app/src/main/res/layout/spinner_item.xml" value="0.15942028985507245" />
+        <entry key="..\:/jobs/app/src/main/res/layout/talabaty_item.xml" value="0.15942028985507245" />
+        <entry key="..\:/jobs/app/src/main/res/layout/talaby_item.xml" value="0.16" />
+        <entry key="..\:/jobs/app/src/main/res/layout/text.xml" value="0.15942028985507245" />
+        <entry key="..\:/jobs/app/src/main/res/layout/title_toolbar.xml" value="0.15942028985507245" />
+        <entry key="..\:/jobs/app/src/main/res/menu/navigation_menu.xml" value="0.20416666666666666" />
+        <entry key="..\:/jobs/app/src/main/res/menu/navigation_user_menu.xml" value="0.1" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

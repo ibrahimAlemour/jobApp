@@ -1,0 +1,47 @@
+<resources>
+    <string name="app_name">jobs</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="signing">جاري تسجيل الدخول</string>
+
+    <string-array name="area">
+        <item>نطاق التغطية الجغرافية</item>
+        <item>الشجاعية</item>
+        <item>الرمال</item>
+        <item>النصر</item>
+        <item>تل الهوا</item>
+        <item>الزيتون</item>
+        <item>شارع عمر المختار</item>
+        <item>الساحة</item>
+        <item>السرايا</item>
+        <item>الثلاتيني</item>
+        <item>شارع الوحدة</item>
+        <item>مفترق الصناعة</item>
+        <item>مفترق الازهر</item>
+        <item>دوار ابو مازن</item>
+        <item>التفاح</item>
+        <item>مجلس الوزراء</item>
+        <item>انصار</item>
+        <item>غزة</item>
+        <item>مدينة الزهراء</item>
+        <item>شارع صلاح الدين</item>
+        <item>النصيرات</item>
+        <item>خانيونس</item>
+        <item>رفح</item>
+        <item>المغازي</item>
+        <item>البريج</item>
+
+
+    </string-array>
+
+    <string-array name="available">
+        <item>هل أنت متاح حالياً؟</item>
+        <item>نعم</item>
+        <item>لا</item>
+    </string-array>
+
+    <string-array name="talab">
+        <item>قيد التنفيذ</item>
+        <item>مكتملة</item>
+    </string-array>
+</resources>
