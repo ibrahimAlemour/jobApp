@@ -121,7 +121,12 @@ public class SignUpActivity extends AppCompatActivity {
                                 Toast.makeText(SignUpActivity.this, "Welcome : " + name + "||" + userType, Toast.LENGTH_SHORT).show();
 
 
-                                // startActivity(new Intent(SignUp.this, MainActivity.class));
+                                if (userType.contains("work_owner")) {
+                                    startActivity(new Intent(SignUpActivity.this, BaseUserActivity.class));
+                                } else {
+                                    startActivity(new Intent(SignUpActivity.this, BaseActivity.class));
+
+                                }
 
                                 pd.dismiss();
                                 finish();
