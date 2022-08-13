@@ -63,10 +63,9 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                startActivity(new Intent(getApplicationContext(),SignUpActivity.class));
+                startActivity(new Intent(getApplicationContext(), SignUpActivity.class));
             }
         });
-
 
 
     }
@@ -81,7 +80,6 @@ public class LoginActivity extends AppCompatActivity {
         tvCreateAccount = (TextView) findViewById(R.id.tvCreateAccount);
         tvvv = (TextView) findViewById(R.id.tvvv);
     }
-
 
 
     private void Login() {
@@ -118,16 +116,17 @@ public class LoginActivity extends AppCompatActivity {
                                     String name = response.body().user.name;
                                     String access_token = response.body().token;
                                     String typeUser = response.body().user.user_type;
-//                                    String first_name = response.body().getData().user.first_name;
-//                                    String last_name = response.body().getData().user.last_name;
-//                                    String phone = response.body().getData().user.phone;
-//                                    Log.e("TAG", "access_token: "+access_token );
-//                                    // RetrofitClient.token = access_token;
                                     MyPreferences.setStr("access_token", access_token);
+                                    MyPreferences.setStr("user_type_login", typeUser);
 
+                                    if (typeUser.contains("work_owner")) {
+                                        startActivity(new Intent(LoginActivity.this, BaseActivity.class));
+                                    } else {
+                                        startActivity(new Intent(LoginActivity.this, BaseUserActivity.class));
 
-                                    startActivity(new Intent(LoginActivity.this, BaseActivity.class));
-                                    Toast.makeText(LoginActivity.this, "Welcome" + name+"|*|"+typeUser, Toast.LENGTH_SHORT).show();
+                                    }
+
+                                    Toast.makeText(LoginActivity.this, "Welcome" + name + "|*|" + typeUser, Toast.LENGTH_SHORT).show();
 
                                     pd.dismiss();
 
@@ -141,7 +140,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
                             } else {
-                                Toast.makeText(LoginActivity.this, "Error Data is null", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, "خطأ في البيانات", Toast.LENGTH_SHORT).show();
                                 pd.dismiss();
                             }
 

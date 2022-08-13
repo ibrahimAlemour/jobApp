@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.WindowManager;
 
+import com.example.jobs.util.MyPreferences;
+
 public class SplashActivity extends AppCompatActivity {
 
     @Override
@@ -17,13 +19,37 @@ public class SplashActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        Intent intent = new Intent(this, PreregisterActivity.class);
+
+        MyPreferences.context = this;
+
 
         new Handler().postDelayed(new Runnable(){
             @Override
             public void run() {
-                startActivity(intent);
+
+        if (MyPreferences.getStr("access_token").contains("null") || MyPreferences.getStr("user_type_login") == null) {
+            startActivity(new Intent(SplashActivity.this, PreregisterActivity.class));
+            finish();
+
+        }else {
+
+            if (MyPreferences.getStr("user_type_login").contains("work_owner")) {
+
+                startActivity(new Intent(SplashActivity.this, BaseActivity.class));
                 finish();
+
+            } else if (MyPreferences.getStr("user_type_login").contains("employee")) {
+
+                startActivity(new Intent(SplashActivity.this, BaseUserActivity.class));
+                finish();
+            }
+
+        }
+
+
+
+
+
             }
         }, 3000);
     }
