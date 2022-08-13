@@ -57,22 +57,6 @@ public class HomeUserFragment extends Fragment {
 
 
 
-       // categories.add(new Category(R.drawable.man, "تم الموافقة على الطلب بنجاح" ));
-
-
-
-//        rvc.setLayoutManager(new GridLayoutManager(getContext(), 2));
-//
-//        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext()  , 2);
-//
-//        //LinearLayoutManager linearLayoutManagerr = new LinearLayoutManager(CategoriesActivity.this , LinearLayoutManager.VERTICAL , false);
-//        rvc.setLayoutManager(gridLayoutManager);
-
-
-//        rvc.setHasFixedSize(true);
-//        CategoryAdapter mAdapterr = new CategoryAdapter(getContext() ,categories );
-//        rvc.setAdapter(mAdapterr);
-
 
         return v ;
     }

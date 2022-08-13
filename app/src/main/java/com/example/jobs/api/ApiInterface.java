@@ -3,6 +3,7 @@ package com.example.jobs.api;
 
 
 import com.example.jobs.model.Category;
+import com.example.jobs.model.JopsOpen;
 import com.example.jobs.model.User;
 import com.example.jobs.model.UserProfile;
 
@@ -40,6 +41,9 @@ public interface ApiInterface {
 
     @GET("job-title")
     Call<ArrayList<Category>> getJops();
+
+    @GET("job/open-jobs")
+    Call<ArrayList<JopsOpen>> getOpenJops();
 
 
 

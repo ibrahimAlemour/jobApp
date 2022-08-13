@@ -10,43 +10,43 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jobs.R;
-import com.example.jobs.model.Archive;
+import com.example.jobs.model.JopsOpen;
 import com.example.jobs.model.OpenTalab;
 
 import java.util.ArrayList;
 
-public class OpenTalabAdapter extends RecyclerView.Adapter<OpenTalabAdapter.OpenTalabsViewHolder> {
+public class OpenJopsAdapter extends RecyclerView.Adapter<OpenJopsAdapter.OpenTalabsViewHolder> {
 
     Context context ;
-    ArrayList<OpenTalab> openTalabs ;
+    ArrayList<JopsOpen> jopsOpens ;
 
-    public OpenTalabAdapter(Context context, ArrayList<OpenTalab> openTalabs) {
+    public OpenJopsAdapter(Context context, ArrayList<JopsOpen> jopsOpens) {
         this.context = context;
-        this.openTalabs = openTalabs;
+        this.jopsOpens = jopsOpens;
     }
 
     @NonNull
     @Override
     public OpenTalabsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View v = LayoutInflater.from(context).inflate(R.layout.opentalab_item , parent , false);
+        View v = LayoutInflater.from(context).inflate(R.layout.notify_item , parent , false);
         return new OpenTalabsViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull OpenTalabsViewHolder holder, int position) {
 
-        final  OpenTalab  ss = openTalabs.get(position);
+        final  JopsOpen  ss = jopsOpens.get(position);
 
 
-        holder.name_tv.setText(ss.getName());
-        holder.text_tv.setText(ss.getText());
+        holder.name_tv.setText(ss.title);
+        holder.text_tv.setText(ss.description);
 
     }
 
     @Override
     public int getItemCount() {
-        return openTalabs.size();
+        return jopsOpens.size();
     }
 
     class OpenTalabsViewHolder extends RecyclerView.ViewHolder {
@@ -55,8 +55,8 @@ public class OpenTalabAdapter extends RecyclerView.Adapter<OpenTalabAdapter.Open
         public OpenTalabsViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            name_tv = itemView.findViewById(R.id.opentalab_name);
-            text_tv = itemView.findViewById(R.id.opentalab_text);
+            name_tv = itemView.findViewById(R.id.notify_name);
+            text_tv = itemView.findViewById(R.id.notify_text);
 
 
 
