@@ -27,7 +27,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
 
-        if (MyPreferences.getStr("access_token").contains("null") || MyPreferences.getStr("user_type_login") == null) {
+        if (MyPreferences.getStr("access_token")==null  || MyPreferences.getStr("user_type_login") == null) {
             startActivity(new Intent(SplashActivity.this, PreregisterActivity.class));
             finish();
 

@@ -43,7 +43,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent b = new Intent(getContext(), LoginActivity.class);
-                MyPreferences.setStr("access_token","null");
+                MyPreferences.setStr("access_token",null);
                 startActivity(b);
 
             }
