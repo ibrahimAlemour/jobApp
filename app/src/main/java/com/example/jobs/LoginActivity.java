@@ -120,9 +120,9 @@ public class LoginActivity extends AppCompatActivity {
                                     MyPreferences.setStr("user_type_login", typeUser);
 
                                     if (typeUser.contains("work_owner")) {
-                                        startActivity(new Intent(LoginActivity.this, BaseActivity.class));
-                                    } else {
                                         startActivity(new Intent(LoginActivity.this, BaseUserActivity.class));
+                                    } else {
+                                        startActivity(new Intent(LoginActivity.this, BaseActivity.class));
 
                                     }
 

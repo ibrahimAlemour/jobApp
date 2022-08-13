@@ -2,8 +2,11 @@ package com.example.jobs.api;
 
 
 
+import com.example.jobs.model.Category;
 import com.example.jobs.model.User;
 import com.example.jobs.model.UserProfile;
+
+import java.util.ArrayList;
 
 import okhttp3.MultipartBody;
 import retrofit2.Call;
@@ -35,8 +38,8 @@ public interface ApiInterface {
     @GET("user/profile")
     Call<UserProfile> getProfile();
 
-    @GET("job/open-jobs")
-    Call<String> getJops();
+    @GET("job-title")
+    Call<ArrayList<Category>> getJops();
 
 
 

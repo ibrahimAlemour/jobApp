@@ -1,64 +1,88 @@
 package com.example.jobs;
 
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ProfileUserFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import androidx.fragment.app.Fragment;
+
+import com.example.jobs.api.ApiInterface;
+import com.example.jobs.api.RetrofitClient;
+import com.example.jobs.model.UserProfile;
+import com.example.jobs.util.MyPreferences;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class ProfileUserFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public ProfileUserFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ProfileUserFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ProfileUserFragment newInstance(String param1, String param2) {
-        ProfileUserFragment fragment = new ProfileUserFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    private CircleImageView imageView;
+    private EditText etName;
+    private EditText etPhoneNum;
+    private EditText etEmail;
+    private Button btnLogout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile_user, container, false);
+        View v = inflater.inflate(R.layout.fragment_profile_user, container, false);
+        initView(v);
+
+        MyPreferences.context = getContext();
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent b = new Intent(getContext(), LoginActivity.class);
+                MyPreferences.setStr("access_token","null");
+                startActivity(b);
+
+            }
+        });
+
+        getProfileUser();
+
+        return v;
+    }
+
+    private void initView(View v) {
+        imageView = (CircleImageView) v.findViewById(R.id.imageView);
+        etName = (EditText) v.findViewById(R.id.etName);
+        etPhoneNum = (EditText) v.findViewById(R.id.etPhoneNum);
+        etEmail = (EditText) v.findViewById(R.id.etEmail);
+        btnLogout = (Button) v.findViewById(R.id.btnLogout);
+    }
+
+    private void getProfileUser() {
+        // swipeRefresh.setRefreshing(true);
+        RetrofitClient.getRetrofitInstance()
+                .create(ApiInterface.class)
+                .getProfile()
+                .enqueue(new Callback<UserProfile>() {
+                    @Override
+                    public void onResponse(Call<UserProfile> call, Response<UserProfile> response) {
+                        Log.e("TAG", "onResponse: " + response.body().email);
+
+                        etName.setText(response.body().name);
+                        etEmail.setText(response.body().email);
+                        etPhoneNum.setText(response.body().phone);
+                    }
+
+                    @Override
+                    public void onFailure(Call<UserProfile> call, Throwable t) {
+                        Toast.makeText(getContext(), "" + t.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+
     }
 }

@@ -33,12 +33,12 @@ public class SplashActivity extends AppCompatActivity {
 
         }else {
 
-            if (MyPreferences.getStr("user_type_login").contains("work_owner")) {
+            if (MyPreferences.getStr("user_type_login").contains("employee")) {
 
                 startActivity(new Intent(SplashActivity.this, BaseActivity.class));
                 finish();
 
-            } else if (MyPreferences.getStr("user_type_login").contains("employee")) {
+            } else if (MyPreferences.getStr("user_type_login").contains("work_owner")) {
 
                 startActivity(new Intent(SplashActivity.this, BaseUserActivity.class));
                 finish();

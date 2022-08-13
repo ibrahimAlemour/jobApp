@@ -1,19 +1,8 @@
 package com.example.jobs;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-
-import com.example.jobs.adapters.NotifyAdapter;
-import com.example.jobs.adapters.categoryAdapter;
-import com.example.jobs.model.Category;
-import com.example.jobs.model.Notify;
-
-import java.util.ArrayList;
 
 public class CategoriesActivity extends AppCompatActivity {
 

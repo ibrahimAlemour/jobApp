@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,16 +12,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jobs.R;
 import com.example.jobs.model.Category;
-import com.example.jobs.model.Notify;
 
 import java.util.ArrayList;
 
-public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.CatecoryViewHolder> {
+public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CatecoryViewHolder> {
 
     Context context ;
     ArrayList<Category> categories ;
 
-    public categoryAdapter(Context context, ArrayList<Category> categories) {
+    public CategoryAdapter(Context context, ArrayList<Category> categories) {
         this.context = context;
         this.categories = categories;
     }
@@ -38,11 +36,11 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.Cateco
     @Override
     public void onBindViewHolder(@NonNull CatecoryViewHolder holder, int position) {
 
-        final  Category  ss = categories.get(position);
+        final  Category  category = categories.get(position);
 
 
-        holder.img_tv.setImageResource(ss.getImg());
-        holder.jobTitle_tv.setText(ss.getJobTitle());
+        //holder.img_tv.setImageResource(ss.getImg());
+        holder.jobTitle_tv.setText(category.getName());
 
     }
 
@@ -53,7 +51,6 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.Cateco
 
     class CatecoryViewHolder extends RecyclerView.ViewHolder {
         TextView   jobTitle_tv ;
-
         ImageView img_tv ;
 
         public CatecoryViewHolder(@NonNull View itemView) {
