@@ -12,7 +12,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/talabb"
+            android:id="@+id/tvTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -31,7 +31,7 @@
             android:orientation="horizontal">
 
             <Spinner
-                android:id="@+id/talabss"
+                android:id="@+id/spState"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:textSize="14sp"
@@ -41,13 +41,15 @@
                 />
 
             <TextView
+                android:id="@+id/tvState"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="الحالة"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:layout_weight="1"
-                android:textStyle="normal" />
+                android:textStyle="normal"
+                />
 
 
         </LinearLayout>

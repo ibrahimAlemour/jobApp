@@ -5,64 +5,34 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toolbar;
 
-import com.example.jobs.adapters.NotifyAdapter;
+import com.example.jobs.adapters.NotificationsAdapter;
+import com.example.jobs.adapters.SavedJobsAdapter;
+import com.example.jobs.api.ApiInterface;
+import com.example.jobs.api.RetrofitClient;
+import com.example.jobs.model.MyPostedJobs;
+import com.example.jobs.model.Notifications;
 import com.example.jobs.model.Notify;
+import com.example.jobs.model.SavedJobs;
 
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link NotificationFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class NotificationFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    ArrayList<Notifications> listNotifications = new ArrayList<>();
+    private SwipeRefreshLayout swipRefresh;
+    NotificationsAdapter notificationsAdapter;
+    RecyclerView rvJop;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public NotificationFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment NotificationFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static NotificationFragment newInstance(String param1, String param2) {
-        NotificationFragment fragment = new NotificationFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -71,35 +41,48 @@ public class NotificationFragment extends Fragment {
         View v =  inflater.inflate(R.layout.fragment_notification, container, false);
        // Toolbar toolbar = getActivity().findViewById(R.id.hh);
 
+        rvJop = v.findViewById(R.id.rvJop);
+        swipRefresh = (SwipeRefreshLayout) v.findViewById(R.id.swip_refresh);
 
-        RecyclerView rvn = v.findViewById(R.id.rvn);
+        swipRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getMyNotifications();
+            }
+        });
 
-        ArrayList<Notify> notifies = new ArrayList<>();
+        getMyNotifications();
 
-        notifies.add(new Notify("عمر محمد محمود" , "تم الموافقة على الطلب بنجاح" ));
-        notifies.add(new Notify("عمر محمد محمود" , "تم الموافقة على الطلب بنجاح" ));
-        notifies.add(new Notify("عمر محمد محمود" , "تم الموافقة على الطلب بنجاح" ));
-        notifies.add(new Notify("عمر محمد محمود" , "تم الموافقة على الطلب بنجاح" ));
-        notifies.add(new Notify("عمر محمد محمود" , "تم الموافقة على الطلب بنجاح" ));
-        notifies.add(new Notify("عمر محمد محمود" , "تم الموافقة على الطلب بنجاح" ));
-        notifies.add(new Notify("عمر محمد محمود" , "تم الموافقة على الطلب بنجاح" ));
-        notifies.add(new Notify("عمر محمد محمود" , "تم الموافقة على الطلب بنجاح" ));
-        notifies.add(new Notify("عمر محمد محمود" , "تم الموافقة على الطلب بنجاح" ));
-        notifies.add(new Notify("عمر محمد محمود" , "تم الموافقة على الطلب بنجاح" ));
-        notifies.add(new Notify("عمر محمد محمود" , "تم الموافقة على الطلب بنجاح" ));
-
-
-
-
-
-        LinearLayoutManager linearLayoutManagerr = new LinearLayoutManager(getContext() , LinearLayoutManager.VERTICAL , false);
-        rvn.setLayoutManager(linearLayoutManagerr);
-        rvn.setHasFixedSize(true);
-        NotifyAdapter mAdapterr = new NotifyAdapter(getContext() ,notifies );
-        rvn.setAdapter(mAdapterr);
         return  v ;
 
+    }
+
+    private void getMyNotifications() {
+        swipRefresh.setRefreshing(true);
+        RetrofitClient.getRetrofitInstance()
+                .create(ApiInterface.class)
+                .getMyNotifications()
+                .enqueue(new Callback<ArrayList<Notifications>>() {
+                    @Override
+                    public void onResponse(Call<ArrayList<Notifications>> call, Response<ArrayList<Notifications>> response) {
+
+                        if (response.isSuccessful()) {
+                            listNotifications = response.body();
+                            for (int i = 0; i < listNotifications.size(); i++) {
+
+                                notificationsAdapter = new NotificationsAdapter(getContext(), listNotifications);
+                                rvJop.setAdapter(notificationsAdapter);
+                                swipRefresh.setRefreshing(false);
 
 
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ArrayList<Notifications>> call, Throwable t) {
+                        swipRefresh.setRefreshing(false);
+                    }
+                });
     }
 }

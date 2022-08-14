@@ -15,17 +15,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.jobs.OrderExecutionActivity;
 import com.example.jobs.R;
 import com.example.jobs.model.JobsOpen;
+import com.example.jobs.model.SavedJobs;
 
 import java.util.ArrayList;
 
-public class OpenJopsAdapter extends RecyclerView.Adapter<OpenJopsAdapter.OpenTalabsViewHolder> {
+public class SavedJobsAdapter extends RecyclerView.Adapter<SavedJobsAdapter.OpenTalabsViewHolder> {
 
     Context context ;
-    ArrayList<JobsOpen> jopsOpens ;
+    ArrayList<SavedJobs> savedJobs ;
 
-    public OpenJopsAdapter(Context context, ArrayList<JobsOpen> jopsOpens) {
+    public SavedJobsAdapter(Context context, ArrayList<SavedJobs> savedJobs) {
         this.context = context;
-        this.jopsOpens = jopsOpens;
+        this.savedJobs = savedJobs;
     }
 
     @NonNull
@@ -39,35 +40,36 @@ public class OpenJopsAdapter extends RecyclerView.Adapter<OpenJopsAdapter.OpenTa
     @Override
     public void onBindViewHolder(@NonNull OpenTalabsViewHolder holder, int position) {
 
-        final JobsOpen ss = jopsOpens.get(position);
+        final SavedJobs svJobs = savedJobs.get(position);
 
 
-        holder.name_tv.setText(ss.title);
-        holder.text_tv.setText(ss.description);
-        Log.e("JopOpen", "onBindViewHolder: "+ss.is_saved );
+        holder.name_tv.setText(svJobs.job.title);
+        holder.text_tv.setText(svJobs.job.description);
 
-        holder.container.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        Log.e("JopOpen", "onBindViewHolder: "+svJobs.job.title );
 
-                Intent intent = new Intent(context, OrderExecutionActivity.class);
-                intent.putExtra("id",ss.id);
-                intent.putExtra("user_id",ss.user_id);
-                intent.putExtra("title",ss.title);
-                intent.putExtra("description",ss.description);
-                intent.putExtra("city",ss.city.name);
-                intent.putExtra("district",ss.district.name);
-                intent.putExtra("is_saved",ss.is_saved);
-                context.startActivity(intent);
-
-            }
-        });
+//        holder.container.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                Intent intent = new Intent(context, OrderExecutionActivity.class);
+//                intent.putExtra("id",ss.id);
+//                intent.putExtra("user_id",ss.user_id);
+//                intent.putExtra("title",ss.title);
+//                intent.putExtra("description",ss.description);
+//                intent.putExtra("city",ss.city.name);
+//                intent.putExtra("district",ss.district.name);
+//                intent.putExtra("is_saved",ss.is_saved);
+//                context.startActivity(intent);
+//
+//            }
+//        });
 
     }
 
     @Override
     public int getItemCount() {
-        return jopsOpens.size();
+        return savedJobs.size();
     }
 
     class OpenTalabsViewHolder extends RecyclerView.ViewHolder {

@@ -1,7 +1,7 @@
 package com.example.jobs.model;
 
 
-public class JopsOpen {
+public class JobsOpen {
 
     public int id;
     public String title;
@@ -16,6 +16,7 @@ public class JopsOpen {
     public Double lng;
     public String created_at;
     public String updated_at;
+    public boolean is_saved;
     public CityDTO city;
     public DistrictDTO district;
 

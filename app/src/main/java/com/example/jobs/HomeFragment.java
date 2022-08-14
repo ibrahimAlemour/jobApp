@@ -3,7 +3,6 @@ package com.example.jobs;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -11,13 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.jobs.adapters.CategoryAdapter;
 import com.example.jobs.adapters.OpenJopsAdapter;
 import com.example.jobs.api.ApiInterface;
 import com.example.jobs.api.RetrofitClient;
-import com.example.jobs.model.Category;
-import com.example.jobs.model.JopsOpen;
-import com.example.jobs.model.OpenTalab;
+import com.example.jobs.model.JobsOpen;
 
 import java.util.ArrayList;
 
@@ -27,7 +23,7 @@ import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
 
-    ArrayList<JopsOpen> listJop = new ArrayList<>();
+    ArrayList<JobsOpen> listJop = new ArrayList<>();
     private SwipeRefreshLayout swipRefresh;
     OpenJopsAdapter openJopsAdapter;
     RecyclerView rvJop;
@@ -59,9 +55,9 @@ public class HomeFragment extends Fragment {
         RetrofitClient.getRetrofitInstance()
                 .create(ApiInterface.class)
                 .getOpenJops()
-                .enqueue(new Callback<ArrayList<JopsOpen>>() {
+                .enqueue(new Callback<ArrayList<JobsOpen>>() {
                     @Override
-                    public void onResponse(Call<ArrayList<JopsOpen>> call, Response<ArrayList<JopsOpen>> response) {
+                    public void onResponse(Call<ArrayList<JobsOpen>> call, Response<ArrayList<JobsOpen>> response) {
 
                         if (response.isSuccessful()) {
                             listJop = response.body();
@@ -77,7 +73,7 @@ public class HomeFragment extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<ArrayList<JopsOpen>> call, Throwable t) {
+                    public void onFailure(Call<ArrayList<JobsOpen>> call, Throwable t) {
 
                         swipRefresh.setRefreshing(false);
 

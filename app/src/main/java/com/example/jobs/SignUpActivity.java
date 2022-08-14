@@ -118,7 +118,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 MyPreferences.setStr("access_token", access_token);
 
                                 Toast.makeText(SignUpActivity.this, "تم انشاء حساب جديد ", Toast.LENGTH_SHORT).show();
-                                Toast.makeText(SignUpActivity.this, "Welcome : " + name + "||" + userType, Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(SignUpActivity.this, "Welcome : " + name + "||" + userType, Toast.LENGTH_SHORT).show();
 
 
                                 if (userType.contains("work_owner")) {

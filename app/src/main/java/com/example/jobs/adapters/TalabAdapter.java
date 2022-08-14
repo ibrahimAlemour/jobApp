@@ -45,10 +45,10 @@ public class TalabAdapter extends RecyclerView.Adapter<TalabAdapter.TalabViewHol
         //holder.Status_tv.getSelectedItem();
 
 
-       holder.Status_tv.setSelection(ss.getStatus());
-
-
-        holder.name_tv.setText(ss.getName());
+//       holder.Status_tv.setSelection(ss.getStatus());
+//
+//
+//        holder.name_tv.setText(ss.getName());
 
     }
 
@@ -64,9 +64,9 @@ public class TalabAdapter extends RecyclerView.Adapter<TalabAdapter.TalabViewHol
 
         public TalabViewHolder(@NonNull View itemView) {
             super(itemView);
-
-            name_tv =  itemView.findViewById(R.id.talabb);
-            Status_tv = itemView.findViewById(R.id.talabss);
+//
+//            name_tv =  itemView.findViewById(R.id.talabb);
+//            Status_tv = itemView.findViewById(R.id.talabss);
 
 
 

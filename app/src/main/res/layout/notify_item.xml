@@ -7,6 +7,7 @@
     android:layout_height="wrap_content"
     app:cardElevation="5dp"
     app:cardCornerRadius="5dp"
+    android:id="@+id/container"
     app:cardBackgroundColor="#F5F4F4"
     app:cardUseCompatPadding="true">
 
@@ -20,8 +21,9 @@
             android:id="@+id/notify_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="تصليح باب خشبي مزدوج"
+            android:text="..."
             android:textColor="@color/purple_700"
+            android:gravity="right"
             android:textSize="18sp"
             android:textStyle="bold" />
 

@@ -8,9 +8,7 @@ import android.os.Bundle;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import com.example.jobs.adapters.NotifyAdapter;
 import com.example.jobs.adapters.TlabatyAdapter;
-import com.example.jobs.model.Notify;
 import com.example.jobs.model.Talbaty;
 
 import java.util.ArrayList;
