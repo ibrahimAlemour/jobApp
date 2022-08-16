@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.jobs.adapters.ProfeeionalAdapter;
 import com.example.jobs.model.ProfeeionalType;
 
 import java.util.ArrayList;
@@ -72,28 +71,28 @@ public class TalabatyUserFragment extends Fragment {
 
         ArrayList<ProfeeionalType> profeeionalTypes = new ArrayList<>();
 
-        profeeionalTypes.add(new ProfeeionalType(R.drawable.man,"حسين" , "خانيونس - المعسكر" , "4", "متاح"  ));
-        profeeionalTypes.add(new ProfeeionalType(R.drawable.man,"حسين" , "خانيونس - المعسكر" , "4", "متاح"  ));
-        profeeionalTypes.add(new ProfeeionalType(R.drawable.man,"حسين" , "خانيونس - المعسكر" , "4", "متاح"  ));
-        profeeionalTypes.add(new ProfeeionalType(R.drawable.man,"حسين" , "خانيونس - المعسكر" , "5", "متاح"  ));
-        profeeionalTypes.add(new ProfeeionalType(R.drawable.man,"حسين" , "خانيونس - المعسكر" , "5", "متاح"  ));
-        profeeionalTypes.add(new ProfeeionalType(R.drawable.man,"حسين" , "خانيونس - المعسكر" , "5", "متاح"  ));
-        profeeionalTypes.add(new ProfeeionalType(R.drawable.man,"حسين" , "خانيونس - المعسكر" , "5", "متاح"  ));
-        profeeionalTypes.add(new ProfeeionalType(R.drawable.man,"حسين" , "خانيونس - المعسكر" , "5", "متاح"  ));
-        profeeionalTypes.add(new ProfeeionalType(R.drawable.man,"حسين" , "خانيونس - المعسكر" , "5", "متاح"  ));
-        profeeionalTypes.add(new ProfeeionalType(R.drawable.man,"حسين" , "خانيونس - المعسكر" , "5", "متاح"  ));
-
-
-
-
-
-
-
-        LinearLayoutManager linearLayoutManagerr = new LinearLayoutManager(getContext() , LinearLayoutManager.VERTICAL , false);
-        rvp.setLayoutManager(linearLayoutManagerr);
-        rvp.setHasFixedSize(true);
-        ProfeeionalAdapter mAdapterr = new ProfeeionalAdapter(getContext()  ,profeeionalTypes );
-        rvp.setAdapter(mAdapterr);
+//        profeeionalTypes.add(new ProfeeionalType(R.drawable.man,"حسين" , "خانيونس - المعسكر" , "4", "متاح"  ));
+//        profeeionalTypes.add(new ProfeeionalType(R.drawable.man,"حسين" , "خانيونس - المعسكر" , "4", "متاح"  ));
+//        profeeionalTypes.add(new ProfeeionalType(R.drawable.man,"حسين" , "خانيونس - المعسكر" , "4", "متاح"  ));
+//        profeeionalTypes.add(new ProfeeionalType(R.drawable.man,"حسين" , "خانيونس - المعسكر" , "5", "متاح"  ));
+//        profeeionalTypes.add(new ProfeeionalType(R.drawable.man,"حسين" , "خانيونس - المعسكر" , "5", "متاح"  ));
+//        profeeionalTypes.add(new ProfeeionalType(R.drawable.man,"حسين" , "خانيونس - المعسكر" , "5", "متاح"  ));
+//        profeeionalTypes.add(new ProfeeionalType(R.drawable.man,"حسين" , "خانيونس - المعسكر" , "5", "متاح"  ));
+//        profeeionalTypes.add(new ProfeeionalType(R.drawable.man,"حسين" , "خانيونس - المعسكر" , "5", "متاح"  ));
+//        profeeionalTypes.add(new ProfeeionalType(R.drawable.man,"حسين" , "خانيونس - المعسكر" , "5", "متاح"  ));
+//        profeeionalTypes.add(new ProfeeionalType(R.drawable.man,"حسين" , "خانيونس - المعسكر" , "5", "متاح"  ));
+//
+//
+//
+//
+//
+//
+//
+//        LinearLayoutManager linearLayoutManagerr = new LinearLayoutManager(getContext() , LinearLayoutManager.VERTICAL , false);
+//        rvp.setLayoutManager(linearLayoutManagerr);
+//        rvp.setHasFixedSize(true);
+//        ProfeeionalAdapter mAdapterr = new ProfeeionalAdapter(getContext()  ,profeeionalTypes );
+//        rvp.setAdapter(mAdapterr);
 
         return  v ;
     }

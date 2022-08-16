@@ -46,7 +46,7 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
-            android:id="@+id/namee"
+            android:id="@+id/tv_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
@@ -59,7 +59,7 @@
  />
 
         <TextView
-            android:id="@+id/placee"
+            android:id="@+id/tvPlace"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -81,7 +81,7 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
-            android:id="@+id/avaliables"
+            android:id="@+id/tvAvaliables"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"

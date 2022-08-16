@@ -51,7 +51,7 @@ public class OpenJopsAdapter extends RecyclerView.Adapter<OpenJopsAdapter.OpenTa
             public void onClick(View view) {
 
                 Intent intent = new Intent(context, OrderExecutionActivity.class);
-                intent.putExtra("id",ss.id);
+                intent.putExtra("job_id",ss.id);
                 intent.putExtra("user_id",ss.user_id);
                 intent.putExtra("title",ss.title);
                 intent.putExtra("description",ss.description);

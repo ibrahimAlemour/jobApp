@@ -1,6 +1,7 @@
 package com.example.jobs;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 
 import com.example.jobs.api.ApiInterface;
 import com.example.jobs.api.RetrofitClient;
@@ -27,6 +29,7 @@ public class OrderExecutionActivity extends AppCompatActivity {
     private TextView tvDescription;
     private int id;
     private ImageView imgSave;
+    private AppCompatButton btnRunJob;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +46,10 @@ public class OrderExecutionActivity extends AppCompatActivity {
             int user_id = bundle.getInt("user_id");
             getUserById(user_id);
 
-            id = bundle.getInt("id");
+            id = bundle.getInt("job_id");
+
+            Log.e("JobID", "onCreate: "+id );
+
             tvTitle.setText(bundle.getString("title"));
             tvNameOwner.setText(bundle.getString("-"));
             tvDescription.setText(bundle.getString("description"));
@@ -62,12 +68,18 @@ public class OrderExecutionActivity extends AppCompatActivity {
                 });
             }
 
+            btnRunJob.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
-
+                  //  runJob(id);
+                }
+            });
 
         }
 
     }
+
 
     private void initView() {
         tvTitleToolbar = (TextView) findViewById(R.id.tvTitleToolbar);
@@ -76,7 +88,30 @@ public class OrderExecutionActivity extends AppCompatActivity {
         tvLocation = (TextView) findViewById(R.id.tvLocation);
         tvDescription = (TextView) findViewById(R.id.tvDescription);
         imgSave = (ImageView) findViewById(R.id.imgSave);
+        btnRunJob = (AppCompatButton) findViewById(R.id.btnStartJob);
     }
+
+    private void runJob(int job_id) {
+
+        RetrofitClient.getRetrofitInstance()
+                .create(ApiInterface.class)
+                .jobStatus(job_id)
+                .enqueue(new Callback<MsSaveJob>() {
+                    @Override
+                    public void onResponse(Call<MsSaveJob> call, Response<MsSaveJob> response) {
+
+                        Log.e("JobStatus", "onResponse: "+response.body().message );
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<MsSaveJob> call, Throwable t) {
+
+                    }
+                });
+
+    }
+
 
     private void getUserById(int user_id) {
         RetrofitClient.getRetrofitInstance()
@@ -86,7 +121,7 @@ public class OrderExecutionActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<UserProfile> call, Response<UserProfile> response) {
 
-                        if (response.isSuccessful()){
+                        if (response.isSuccessful()) {
                             tvNameOwner.setText(response.body().name);
                         }
                     }
@@ -97,7 +132,6 @@ public class OrderExecutionActivity extends AppCompatActivity {
                     }
                 });
     }
-
 
 
     private void saveJob(int id) {

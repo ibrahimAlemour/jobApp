@@ -2,12 +2,14 @@ package com.example.jobs.api;
 
 
 import com.example.jobs.model.Category;
+import com.example.jobs.model.City;
 import com.example.jobs.model.JobsOpen;
 import com.example.jobs.model.MsSaveJob;
 import com.example.jobs.model.MyPostedJobs;
 import com.example.jobs.model.Notifications;
 import com.example.jobs.model.SavedJobs;
 import com.example.jobs.model.User;
+import com.example.jobs.model.UserInJob;
 import com.example.jobs.model.UserProfile;
 
 import java.util.ArrayList;
@@ -19,6 +21,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
 
@@ -49,6 +52,11 @@ public interface ApiInterface {
     @GET("job-title")
     Call<ArrayList<Category>> getJops();
 
+
+    @GET("job-title/{id}/user")
+    Call<ArrayList<UserInJob>> getUserInJob(@Path("id") int id_JobTitle);
+
+
     @GET("job/open-jobs")
     Call<ArrayList<JobsOpen>> getOpenJops();
 
@@ -64,6 +72,14 @@ public interface ApiInterface {
 
     @GET("user/{id}")
     Call<UserProfile> getUserById(@Path("id") int id_User);
+
+    @GET("city")
+    Call<ArrayList<City>> getCity();
+
+    @FormUrlEncoded
+    @PUT("job/{job_status_id}/update-job-status")
+    Call<MsSaveJob> jobStatus(@Field("job_status_id") int job_status_id);
+
 
 
 }
