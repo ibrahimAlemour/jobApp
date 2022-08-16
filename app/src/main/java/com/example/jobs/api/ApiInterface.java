@@ -46,6 +46,11 @@ public interface ApiInterface {
     @POST("saved-job")
     Call<MsSaveJob> SaveJop(@Field("job_id") int job_id);
 
+    @FormUrlEncoded
+    @POST("job_invitation")
+    Call<MsSaveJob> JobInvention(@Field("job_id") int job_id,
+                                 @Field("emp_user_id") int emp_user_id);
+
     @GET("user/profile")
     Call<UserProfile> getProfile();
 
