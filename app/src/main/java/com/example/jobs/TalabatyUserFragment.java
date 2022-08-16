@@ -5,61 +5,33 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.jobs.adapters.MyPostedJobsAdapter;
+import com.example.jobs.adapters.MyPostedJobsOwnerAdapter;
+import com.example.jobs.api.ApiInterface;
+import com.example.jobs.api.RetrofitClient;
+import com.example.jobs.model.MyPostedJobs;
 import com.example.jobs.model.ProfeeionalType;
 
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link TalabatyUserFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class TalabatyUserFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    ArrayList<MyPostedJobs> listJobs = new ArrayList<>();
+    private SwipeRefreshLayout swipRefresh;
+    MyPostedJobsOwnerAdapter myPostedJobsAdapter;
+    RecyclerView rvJop;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public TalabatyUserFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment TalabatyUserFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static TalabatyUserFragment newInstance(String param1, String param2) {
-        TalabatyUserFragment fragment = new TalabatyUserFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -67,33 +39,59 @@ public class TalabatyUserFragment extends Fragment {
         // Inflate the layout for this fragment
         View v =  inflater.inflate(R.layout.fragment_talabaty_user, container, false);
 
-        RecyclerView rvp = v.findViewById(R.id.rvp);
+        rvJop = v.findViewById(R.id.rvJop);
+        swipRefresh = (SwipeRefreshLayout) v.findViewById(R.id.swip_refresh);
 
-        ArrayList<ProfeeionalType> profeeionalTypes = new ArrayList<>();
+        swipRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getMyPostedJobs();
+            }
+        });
 
-//        profeeionalTypes.add(new ProfeeionalType(R.drawable.man,"حسين" , "خانيونس - المعسكر" , "4", "متاح"  ));
-//        profeeionalTypes.add(new ProfeeionalType(R.drawable.man,"حسين" , "خانيونس - المعسكر" , "4", "متاح"  ));
-//        profeeionalTypes.add(new ProfeeionalType(R.drawable.man,"حسين" , "خانيونس - المعسكر" , "4", "متاح"  ));
-//        profeeionalTypes.add(new ProfeeionalType(R.drawable.man,"حسين" , "خانيونس - المعسكر" , "5", "متاح"  ));
-//        profeeionalTypes.add(new ProfeeionalType(R.drawable.man,"حسين" , "خانيونس - المعسكر" , "5", "متاح"  ));
-//        profeeionalTypes.add(new ProfeeionalType(R.drawable.man,"حسين" , "خانيونس - المعسكر" , "5", "متاح"  ));
-//        profeeionalTypes.add(new ProfeeionalType(R.drawable.man,"حسين" , "خانيونس - المعسكر" , "5", "متاح"  ));
-//        profeeionalTypes.add(new ProfeeionalType(R.drawable.man,"حسين" , "خانيونس - المعسكر" , "5", "متاح"  ));
-//        profeeionalTypes.add(new ProfeeionalType(R.drawable.man,"حسين" , "خانيونس - المعسكر" , "5", "متاح"  ));
-//        profeeionalTypes.add(new ProfeeionalType(R.drawable.man,"حسين" , "خانيونس - المعسكر" , "5", "متاح"  ));
-//
-//
-//
-//
-//
-//
-//
-//        LinearLayoutManager linearLayoutManagerr = new LinearLayoutManager(getContext() , LinearLayoutManager.VERTICAL , false);
-//        rvp.setLayoutManager(linearLayoutManagerr);
-//        rvp.setHasFixedSize(true);
-//        ProfeeionalAdapter mAdapterr = new ProfeeionalAdapter(getContext()  ,profeeionalTypes );
-//        rvp.setAdapter(mAdapterr);
+        getMyPostedJobs();
 
         return  v ;
+    }
+
+
+    private void getMyPostedJobs() {
+
+        swipRefresh.setRefreshing(true);
+        RetrofitClient.getRetrofitInstance()
+                .create(ApiInterface.class)
+                .getMyPostedJobs()
+                .enqueue(new Callback<ArrayList<MyPostedJobs>>() {
+                    @Override
+                    public void onResponse(Call<ArrayList<MyPostedJobs>> call, Response<ArrayList<MyPostedJobs>> response) {
+
+                        if (response.isSuccessful()) {
+
+                            if (response.body() == null){
+                                swipRefresh.setRefreshing(false);
+                            }
+
+                            listJobs = response.body();
+                            for (int i = 0; i < listJobs.size(); i++) {
+
+                                myPostedJobsAdapter = new MyPostedJobsOwnerAdapter(getContext(), listJobs);
+                                rvJop.setAdapter(myPostedJobsAdapter);
+                                swipRefresh.setRefreshing(false);
+
+
+                            }
+                        }else {
+                            swipRefresh.setRefreshing(false);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ArrayList<MyPostedJobs>> call, Throwable t) {
+
+                        swipRefresh.setRefreshing(false);
+                        Log.e("MyPostedJobs", "onFailure: "+t.getMessage() );
+
+                    }
+                });
     }
 }

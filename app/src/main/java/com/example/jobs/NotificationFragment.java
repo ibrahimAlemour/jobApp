@@ -10,6 +10,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.jobs.adapters.NotificationsAdapter;
 import com.example.jobs.adapters.SavedJobsAdapter;
@@ -75,6 +76,11 @@ public class NotificationFragment extends Fragment {
                                 swipRefresh.setRefreshing(false);
 
 
+                            }
+
+                            if (listNotifications.size() == 0){
+                                swipRefresh.setRefreshing(false);
+                                Toast.makeText(getContext(), "لا يوجد اشعارات حتى الان ", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }

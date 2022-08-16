@@ -3,6 +3,7 @@ package com.example.jobs.api;
 
 import com.example.jobs.model.Category;
 import com.example.jobs.model.City;
+import com.example.jobs.model.District;
 import com.example.jobs.model.JobsOpen;
 import com.example.jobs.model.MsSaveJob;
 import com.example.jobs.model.MyPostedJobs;
@@ -51,6 +52,15 @@ public interface ApiInterface {
     Call<MsSaveJob> JobInvention(@Field("job_id") int job_id,
                                  @Field("emp_user_id") int emp_user_id);
 
+    @FormUrlEncoded
+    @POST("job")
+    Call<MsSaveJob> AddJob(@Field("title") String title,
+                           @Field("description") String description,
+                           @Field("city_id") int city_id,
+                           @Field("district_id") int district_id,
+                           @Field("job_type_id") int job_type_id
+                           );
+
     @GET("user/profile")
     Call<UserProfile> getProfile();
 
@@ -78,13 +88,15 @@ public interface ApiInterface {
     @GET("user/{id}")
     Call<UserProfile> getUserById(@Path("id") int id_User);
 
+    @GET("city/{id}/district")
+    Call<ArrayList<District>> getDistrict(@Path("id") int id);
+
     @GET("city")
     Call<ArrayList<City>> getCity();
 
     @FormUrlEncoded
     @PUT("job/{job_status_id}/update-job-status")
     Call<MsSaveJob> jobStatus(@Field("job_status_id") int job_status_id);
-
 
 
 }

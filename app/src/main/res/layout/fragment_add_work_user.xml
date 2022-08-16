@@ -34,10 +34,13 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tv_faild_1"
+            <EditText
+                android:id="@+id/etTitle"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
+                android:hint="اكتب ..."
+                android:padding="8dp"
+                android:gravity="right|center"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/tv_bg"
@@ -60,15 +63,16 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_faild_1" />
+                app:layout_constraintTop_toBottomOf="@id/etTitle" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tv_faild_2"
+            <EditText
+                android:id="@+id/etDes"
                 android:layout_width="match_parent"
                 android:layout_height="223dp"
                 android:textDirection="rtl"
-                android:gravity="top"
+                android:gravity="top|right"
                 android:padding="10dp"
+                android:hint="اكتب الوصف ..."
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/tv_bg"
@@ -89,7 +93,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_faild_2" />
+                app:layout_constraintTop_toBottomOf="@id/etDes" />
 
             <TextView
                 android:id="@+id/available"
@@ -115,16 +119,29 @@
                 android:layout_marginHorizontal="20dp"
                 android:paddingHorizontal="30dp"
                 android:gravity="center"
-
-
                 app:layout_constraintEnd_toEndOf="@id/available"
                 app:layout_constraintHorizontal_bias="0.509"
                 app:layout_constraintStart_toStartOf="@id/available"
                 app:layout_constraintTop_toTopOf="@id/available"
                 app:layout_constraintBottom_toBottomOf="@id/available"
+
+                />
+
+            <Spinner
+                android:id="@+id/spDistrict"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="20dp"
+                android:paddingHorizontal="30dp"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/area"
                 />
 
             <Button
+                android:id="@+id/btnAddJob"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
@@ -134,14 +151,13 @@
                 android:paddingRight="22dp"
                 android:text="نشر الطلب "
                 android:gravity="top"
-
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/available"
+                app:layout_constraintTop_toBottomOf="@+id/spDistrict"
                 app:layout_constraintVertical_bias="0.0" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

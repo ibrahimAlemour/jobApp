@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.jobs.adapters.ArchiveAdapter;
 import com.example.jobs.adapters.MyPostedJobsAdapter;
@@ -86,8 +87,12 @@ public class TalabatyFragment extends Fragment {
 
 
                             }
-                        }else {
-                            swipRefresh.setRefreshing(false);
+
+                            if (listJobs.size() == 0){
+                                swipRefresh.setRefreshing(false);
+                                Toast.makeText(getContext(), "لا يوجد طلبات حتى الان ", Toast.LENGTH_SHORT).show();
+                            }
+
                         }
                     }
 

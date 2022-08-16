@@ -22,7 +22,7 @@
         <entry key="..\:/Projects2022/JobsMain/app/src/main/res/layout/activity_user_info.xml" value="0.19947916666666668" />
         <entry key="..\:/Projects2022/JobsMain/app/src/main/res/layout/archive_item.xml" value="0.19947916666666668" />
         <entry key="..\:/Projects2022/JobsMain/app/src/main/res/layout/category_item.xml" value="0.19947916666666668" />
-        <entry key="..\:/Projects2022/JobsMain/app/src/main/res/layout/fragment_add_work_user.xml" value="0.19947916666666668" />
+        <entry key="..\:/Projects2022/JobsMain/app/src/main/res/layout/fragment_add_work_user.xml" value="0.33" />
         <entry key="..\:/Projects2022/JobsMain/app/src/main/res/layout/fragment_archive.xml" value="0.19947916666666668" />
         <entry key="..\:/Projects2022/JobsMain/app/src/main/res/layout/fragment_home.xml" value="0.19947916666666668" />
         <entry key="..\:/Projects2022/JobsMain/app/src/main/res/layout/fragment_home_user.xml" value="0.19947916666666668" />
@@ -31,6 +31,7 @@
         <entry key="..\:/Projects2022/JobsMain/app/src/main/res/layout/fragment_profile_user.xml" value="0.19947916666666668" />
         <entry key="..\:/Projects2022/JobsMain/app/src/main/res/layout/fragment_talabaty.xml" value="0.19947916666666668" />
         <entry key="..\:/Projects2022/JobsMain/app/src/main/res/layout/fragment_talabaty_user.xml" value="0.19947916666666668" />
+        <entry key="..\:/Projects2022/JobsMain/app/src/main/res/layout/item_city.xml" value="0.19947916666666668" />
         <entry key="..\:/Projects2022/JobsMain/app/src/main/res/layout/notify_item.xml" value="0.19947916666666668" />
         <entry key="..\:/Projects2022/JobsMain/app/src/main/res/layout/opentalab_item.xml" value="0.19947916666666668" />
         <entry key="..\:/Projects2022/JobsMain/app/src/main/res/layout/search_toolbar.xml" value="0.19947916666666668" />
@@ -38,6 +39,7 @@
         <entry key="..\:/Projects2022/JobsMain/app/src/main/res/layout/spinner_item.xml" value="0.19947916666666668" />
         <entry key="..\:/Projects2022/JobsMain/app/src/main/res/layout/talabaty_item.xml" value="0.19947916666666668" />
         <entry key="..\:/Projects2022/JobsMain/app/src/main/res/layout/talaby_item.xml" value="0.19947916666666668" />
+        <entry key="..\:/Projects2022/JobsMain/app/src/main/res/layout/talaby_owner_item.xml" value="0.33" />
         <entry key="..\:/Projects2022/JobsMain/app/src/main/res/layout/title_toolbar.xml" value="0.19947916666666668" />
         <entry key="..\:/Projects2022/JobsMain/app/src/main/res/menu/navigation_user_menu.xml" value="0.19947916666666668" />
         <entry key="..\:/jobs/app/src/main/res/drawable-v24/ic_baseline_post_add.xml" value="0.1995" />
