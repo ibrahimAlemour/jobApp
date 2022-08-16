@@ -10,7 +10,7 @@ public class UserInJob {
     private String phone;
     private String user_type;
     private Object rating;
-    private Object about_me;
+    private String about_me;
     private Object lat;
     private Object lng;
     private Object photo;
@@ -51,7 +51,7 @@ public class UserInJob {
         return rating;
     }
 
-    public Object getAbout_me() {
+    public String getAbout_me() {
         return about_me;
     }
 

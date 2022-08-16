@@ -1,6 +1,7 @@
 package com.example.jobs.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,9 +10,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jobs.R;
+import com.example.jobs.UserInfoActivity;
 import com.example.jobs.api.ApiInterface;
 import com.example.jobs.api.RetrofitClient;
 import com.example.jobs.model.Category;
@@ -60,7 +63,15 @@ public class UserInJobAdapter extends RecyclerView.Adapter<UserInJobAdapter.Cate
         }
 
 
-        // holder.jobTitle_tv.setText(category.getName());
+        holder.container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, UserInfoActivity.class);
+                intent.putExtra("name",user.getName());
+                intent.putExtra("me",user.getAbout_me());
+                context.startActivity(intent);
+            }
+        });
 
     }
 
@@ -71,7 +82,7 @@ public class UserInJobAdapter extends RecyclerView.Adapter<UserInJobAdapter.Cate
 
     class CatecoryViewHolder extends RecyclerView.ViewHolder {
         TextView tv_name, tvAvaliables, tvPlace;
-        ImageView img_tv;
+        CardView container;
 
         public CatecoryViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -79,6 +90,7 @@ public class UserInJobAdapter extends RecyclerView.Adapter<UserInJobAdapter.Cate
             tv_name = itemView.findViewById(R.id.tv_name);
             tvAvaliables = itemView.findViewById(R.id.tvAvaliables);
             tvPlace = itemView.findViewById(R.id.tvPlace);
+            container = itemView.findViewById(R.id.container);
 
 
         }
