@@ -72,7 +72,7 @@ public class OrderExecutionActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
 
-                  //  runJob(id);
+                    runJob(id);
                 }
             });
 
@@ -95,7 +95,7 @@ public class OrderExecutionActivity extends AppCompatActivity {
 
         RetrofitClient.getRetrofitInstance()
                 .create(ApiInterface.class)
-                .jobStatus(job_id)
+                .jobFinish(job_id)
                 .enqueue(new Callback<MsSaveJob>() {
                     @Override
                     public void onResponse(Call<MsSaveJob> call, Response<MsSaveJob> response) {

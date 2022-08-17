@@ -43,6 +43,20 @@ public interface ApiInterface {
                           @Part("email") String email,
                           @Part("phone") String phone);
 
+    @Multipart
+    @POST("user/update-profile")
+    Call<User> updateProfile(@Part("name") String name,
+                             @Part("phone") String phone,
+                             @Part("_method") String _method,
+                             @Part("about_me") String about_me,
+                             @Part("job_type_id") int job_type_id,
+                             @Part("job_title_id") int job_title_id,
+                             @Part("city_id") int city_id,
+                             @Part("district_id") int district_id,
+                             @Part("is_available") int is_available
+    );
+
+
     @FormUrlEncoded
     @POST("saved-job")
     Call<MsSaveJob> SaveJop(@Field("job_id") int job_id);
@@ -59,13 +73,19 @@ public interface ApiInterface {
                            @Field("city_id") int city_id,
                            @Field("district_id") int district_id,
                            @Field("job_type_id") int job_type_id
-                           );
+    );
 
     @GET("user/profile")
     Call<UserProfile> getProfile();
 
     @GET("job-title")
     Call<ArrayList<Category>> getJops();
+
+    @GET("job-title")
+    Call<ArrayList<City>> getJopsTitle();
+
+    @GET("job-type")
+    Call<ArrayList<City>> getJopsType();
 
 
     @GET("job-title/{id}/user")
@@ -94,9 +114,15 @@ public interface ApiInterface {
     @GET("city")
     Call<ArrayList<City>> getCity();
 
+
     @FormUrlEncoded
-    @PUT("job/{job_status_id}/update-job-status")
-    Call<MsSaveJob> jobStatus(@Field("job_status_id") int job_status_id);
+    @PUT("job/{id}/update-job-status")
+    Call<MsSaveJob> jobStatus(@Path("id") int id,
+                              @Field("job_status_id") int job_status_id);
+
+    // @FormUrlEncoded
+    @PUT("job/{id}/finish-job")
+    Call<MsSaveJob> jobFinish(@Path("id") int id);
 
 
 }

@@ -6,166 +6,213 @@
     android:layout_height="match_parent"
     tools:context=".CompleteInfoActivity">
 
-    <include layout="@layout/title_toolbar"
-        android:id="@+id/bn"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imageView"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/man"
-        android:layout_marginTop="32dp"
-        app:civ_border_color="#0500F3"
-        app:civ_border_width="3dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bn"
-        tools:ignore="MissingClass" />
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/edit_profile_picture_button"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="4dp"
-        android:padding="8dp"
-        app:civ_circle_background_color="#9F9D9D"        app:civ_border_width="3dp"
-        android:src="@drawable/ic_baseline_edit"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:tint="@color/white"
-
-
-        />
-
-
-    <EditText
-        android:id="@+id/natureserviceprovided"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-       android:layout_marginTop="32dp"
-        android:layout_marginHorizontal="40dp"
-        android:width="250dp"
-        android:hint="طبيعة الخدمة المقدمة"
-        android:background="@drawable/tv_bg"
-        android:inputType="text"
-        android:gravity="center"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.509"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"/>
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include
+                android:id="@+id/bn"
+                layout="@layout/title_toolbar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imageView"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="32dp"
+                android:src="@drawable/man"
+                app:civ_border_color="#0500F3"
+                app:civ_border_width="3dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bn"
+                tools:ignore="MissingClass" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/edit_profile_picture_button"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
+                android:padding="8dp"
+                android:src="@drawable/ic_baseline_edit"
+                app:civ_border_width="3dp"
+                app:civ_circle_background_color="#9F9D9D"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                app:layout_constraintEnd_toEndOf="@+id/imageView"
+                app:tint="@color/white"
 
 
+                />
 
 
-    <EditText
-        android:id="@+id/servicedescription"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="40dp"
-        android:width="250dp"
-        android:hint="أدخل وصف الخدمة"
-        android:background="@drawable/tv_bg"
-        android:inputType="text"
-        android:gravity="center"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.509"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/natureserviceprovided"/>
+            <TextView
+                android:id="@+id/jobTitle"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="40dp"
+                android:layout_marginTop="16dp"
+                android:width="250dp"
+                android:background="@drawable/tv_bg"
+                android:hint=""
+                android:inputType="text"
+                android:padding="10dp"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.509"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edit_profile_picture_button" />
 
-    <EditText
-        android:id="@+id/re"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="40dp"
-        android:width="250dp"
-        android:hint=""
-        android:gravity="center"
-        android:background="@drawable/tv_bg"
-        android:inputType="text"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.509"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/servicedescription"/>
-
-    <Spinner
-        android:id="@+id/geographical"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginHorizontal="40dp"
-        android:paddingHorizontal="30dp"
-        android:gravity="center"
+            <Spinner
+                android:id="@+id/spJobTitle"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="40dp"
+                android:gravity="center"
+                android:paddingHorizontal="30dp"
+                app:layout_constraintBottom_toBottomOf="@id/jobTitle"
+                app:layout_constraintEnd_toEndOf="@id/jobTitle"
+                app:layout_constraintHorizontal_bias="0.509"
+                app:layout_constraintStart_toStartOf="@id/jobTitle"
+                app:layout_constraintTop_toTopOf="@id/jobTitle" />
 
 
-        app:layout_constraintEnd_toEndOf="@id/re"
-        app:layout_constraintHorizontal_bias="0.509"
-        app:layout_constraintStart_toStartOf="@id/re"
-app:layout_constraintTop_toTopOf="@id/re"
-        app:layout_constraintBottom_toBottomOf="@id/re"
-        />
+            <EditText
+                android:id="@+id/etDescription"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginHorizontal="40dp"
+                android:layout_marginTop="16dp"
+                android:width="250dp"
+                android:background="@drawable/tv_bg"
+                android:gravity="right|top"
+                android:padding="8dp"
+                android:hint="أدخل وصف الخدمة"
+                android:inputType="text"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.509"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spJobTitle" />
+
+            <EditText
+                android:id="@+id/re"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="40dp"
+                android:layout_marginTop="16dp"
+                android:width="250dp"
+                android:background="@drawable/tv_bg"
+                android:gravity="center"
+                android:hint=""
+                android:inputType="text"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.509"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etDescription" />
+
+            <Spinner
+                android:id="@+id/spJopType"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="40dp"
+                android:gravity="center"
+                android:paddingHorizontal="30dp"
+                app:layout_constraintBottom_toBottomOf="@id/re"
+                app:layout_constraintEnd_toEndOf="@id/re"
+                app:layout_constraintHorizontal_bias="0.509"
+                app:layout_constraintStart_toStartOf="@id/re"
+                app:layout_constraintTop_toTopOf="@id/re" />
 
 
+            <TextView
+                android:id="@+id/available"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="40dp"
+                android:layout_marginTop="16dp"
+                android:width="250dp"
+                android:background="@drawable/tv_bg"
+                android:hint=""
+                android:inputType="text"
+                android:padding="10dp"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.509"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spJopType" />
+
+            <Spinner
+                android:id="@+id/spCity"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="40dp"
+                android:gravity="center"
+                android:paddingHorizontal="30dp"
+                app:layout_constraintBottom_toBottomOf="@id/available"
+                app:layout_constraintEnd_toEndOf="@id/available"
+                app:layout_constraintHorizontal_bias="0.509"
+                app:layout_constraintStart_toStartOf="@id/available"
+                app:layout_constraintTop_toTopOf="@id/available" />
+
+            <TextView
+                android:id="@+id/available1"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="40dp"
+                android:layout_marginTop="16dp"
+                android:width="250dp"
+                android:background="@drawable/tv_bg"
+                android:hint=""
+                android:inputType="text"
+                android:padding="10dp"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.509"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spCity" />
+
+            <Spinner
+                android:id="@+id/spDistrict"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="40dp"
+                android:gravity="center"
+                android:paddingHorizontal="30dp"
+                app:layout_constraintBottom_toBottomOf="@id/available1"
+                app:layout_constraintEnd_toEndOf="@id/available1"
+                app:layout_constraintHorizontal_bias="0.509"
+                app:layout_constraintStart_toStartOf="@id/available1"
+                app:layout_constraintTop_toTopOf="@id/available1" />
 
 
-    <TextView
-        android:id="@+id/available"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="40dp"
-        android:width="250dp"
-        android:hint=""
-        android:background="@drawable/tv_bg"
-        android:inputType="text"
-        android:padding="10dp"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.509"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/geographical"/>
+            <Button
+                android:id="@+id/confirm_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="70dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="70dp"
+                android:background="@drawable/rounded_button"
+                android:text="تأكيد"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.585"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spDistrict" />
 
-    <Spinner
-        android:id="@+id/availablee"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginHorizontal="40dp"
-        android:paddingHorizontal="30dp"
-        android:gravity="center"
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
+    </ScrollView>
 
-        app:layout_constraintEnd_toEndOf="@id/available"
-        app:layout_constraintHorizontal_bias="0.509"
-        app:layout_constraintStart_toStartOf="@id/available"
-        app:layout_constraintTop_toTopOf="@id/available"
-        app:layout_constraintBottom_toBottomOf="@id/available"
-        />
-
-
-    <Button
-        android:id="@+id/confirm_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="70dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginRight="70dp"
-        android:background="@drawable/rounded_button"
-        android:text="تأكيد"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.585"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/available" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

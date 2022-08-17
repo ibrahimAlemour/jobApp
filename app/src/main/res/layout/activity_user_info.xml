@@ -111,6 +111,7 @@
         android:layout_marginTop="16dp"
         android:progressTint="#F1E04A"
         android:rating="3"
+        android:clickable="false"
         android:secondaryProgressTint="#F1E04A"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

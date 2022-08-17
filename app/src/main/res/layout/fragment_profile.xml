@@ -85,21 +85,37 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etPhoneNum"/>
 
-
     <Button
-        android:id="@+id/btnLogout"
+        android:id="@+id/btnComplete"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="70dp"
         android:layout_marginTop="32dp"
         android:layout_marginRight="70dp"
         android:background="@drawable/rounded_button"
-        android:text="تسجيل خروج"
+        android:text="استكمال الملف الشخصي"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintCircleRadius="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etEmail" />
+
+
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="70dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="70dp"
+        android:background="@drawable/rounded_button"
+        android:text="تسجيل خروج"
+        android:textSize="14sp"
+
+        app:layout_constraintCircleRadius="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnComplete" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -30,6 +30,7 @@ public class ProfileFragment extends Fragment {
     private EditText etPhoneNum;
     private EditText etEmail;
     private Button btnLogout;
+    private Button btnComplete;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,13 +44,26 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent b = new Intent(getContext(), LoginActivity.class);
-                MyPreferences.setStr("access_token",null);
+                MyPreferences.setStr("access_token", null);
                 startActivity(b);
 
             }
         });
 
         getProfileUser();
+
+        btnComplete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(getContext(), CompleteInfoActivity.class);
+                intent.putExtra("name",etName.getText().toString());
+                intent.putExtra("email",etName.getText().toString());
+                intent.putExtra("phone",etPhoneNum.getText().toString());
+                startActivity(intent);
+            }
+        });
+
 
         return v;
     }
@@ -60,6 +74,7 @@ public class ProfileFragment extends Fragment {
         etPhoneNum = (EditText) v.findViewById(R.id.etPhoneNum);
         etEmail = (EditText) v.findViewById(R.id.etEmail);
         btnLogout = (Button) v.findViewById(R.id.btnLogout);
+        btnComplete = (Button) v.findViewById(R.id.btnComplete);
     }
 
     private void getProfileUser() {
@@ -84,8 +99,6 @@ public class ProfileFragment extends Fragment {
                 });
 
     }
-
-
 
 
 //    private void getProfile() {
