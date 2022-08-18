@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -26,11 +27,13 @@ public class ProfileFragment extends Fragment {
 
 
     private CircleImageView imageView;
-    private EditText etName;
-    private EditText etPhoneNum;
-    private EditText etEmail;
+    private TextView etName;
+    private TextView etPhoneNum;
+    private TextView etEmail;
+    private TextView tvAboutMe;
     private Button btnLogout;
     private Button btnComplete;
+    public String aboutMe;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,6 +63,7 @@ public class ProfileFragment extends Fragment {
                 intent.putExtra("name",etName.getText().toString());
                 intent.putExtra("email",etName.getText().toString());
                 intent.putExtra("phone",etPhoneNum.getText().toString());
+                intent.putExtra("aboutMe",tvAboutMe.getText().toString());
                 startActivity(intent);
             }
         });
@@ -70,9 +74,10 @@ public class ProfileFragment extends Fragment {
 
     private void initView(View v) {
         imageView = (CircleImageView) v.findViewById(R.id.imageView);
-        etName = (EditText) v.findViewById(R.id.etName);
-        etPhoneNum = (EditText) v.findViewById(R.id.etPhoneNum);
-        etEmail = (EditText) v.findViewById(R.id.etEmail);
+        etName = (TextView) v.findViewById(R.id.etName);
+        etPhoneNum = (TextView) v.findViewById(R.id.etPhoneNum);
+        etEmail = (TextView) v.findViewById(R.id.etEmail);
+        tvAboutMe = (TextView) v.findViewById(R.id.tvAboutMe);
         btnLogout = (Button) v.findViewById(R.id.btnLogout);
         btnComplete = (Button) v.findViewById(R.id.btnComplete);
     }
@@ -90,6 +95,12 @@ public class ProfileFragment extends Fragment {
                         etName.setText(response.body().name);
                         etEmail.setText(response.body().email);
                         etPhoneNum.setText(response.body().phone);
+                        tvAboutMe.setText(response.body().about_me);
+
+//                        int city = response.body().city_id;
+//                        if ( city != 0){
+//                            btnComplete.setVisibility(View.GONE);
+//                        }
                     }
 
                     @Override

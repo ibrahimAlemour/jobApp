@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,7 +18,6 @@ import com.example.jobs.adapters.AdapterDistrict;
 import com.example.jobs.adapters.CategoryAdapter;
 import com.example.jobs.api.ApiInterface;
 import com.example.jobs.api.RetrofitClient;
-import com.example.jobs.model.Category;
 import com.example.jobs.model.City;
 import com.example.jobs.model.District;
 import com.example.jobs.model.User;
@@ -28,7 +28,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
+
 
 public class CompleteInfoActivity extends AppCompatActivity {
 
@@ -52,6 +52,8 @@ public class CompleteInfoActivity extends AppCompatActivity {
     private Spinner spCity;
     private Spinner spDistrict;
     private Button confirmButton;
+    private EditText etName;
+    private EditText etPhoneNum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,15 +61,24 @@ public class CompleteInfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_complete_info);
         initView();
 
+        getSupportActionBar().hide();
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+
         //Dialog
         pd = new ProgressDialog(this);
         pd.setMessage("جاري تحديث البيانات ...");
 
         Bundle bundle = getIntent().getExtras();
-        if (bundle != null){
+        if (bundle != null) {
             String name = bundle.getString("name");
             String email = bundle.getString("email");
             String phone = bundle.getString("phone");
+            String aboutMe = bundle.getString("aboutMe");
+
+            etDescription.setText(aboutMe);
+            etName.setText(name);
+            etPhoneNum.setText(phone);
 
 
             getJobType();
@@ -139,17 +150,16 @@ public class CompleteInfoActivity extends AppCompatActivity {
             });
 
 
-
             confirmButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
                     String aboutMe = etDescription.getText().toString().trim();
-                    if (aboutMe.isEmpty()){
+                    if (aboutMe.isEmpty()) {
                         Toast.makeText(CompleteInfoActivity.this, "الرجاء تعبئة الوصف !", Toast.LENGTH_SHORT).show();
-                    }else {
+                    } else {
 
-                        updateProfile(name, phone, "PUT",aboutMe,id_jobType,id_jobTitle,id_city,id_dis,1);
+                        updateProfile(name, phone, "PUT", aboutMe, id_jobType, id_jobTitle, id_city, id_dis, 1);
                     }
                 }
             });
@@ -160,16 +170,16 @@ public class CompleteInfoActivity extends AppCompatActivity {
 
     }
 
-    private void updateProfile(String name ,String phone ,String method, String aboutMe,int job_type_id,int job_title_id,int city_id,int district_id,int is_available ) {
-       pd.show();
+    private void updateProfile(String name, String phone, String method, String aboutMe, int job_type_id, int job_title_id, int city_id, int district_id, int is_available) {
+        pd.show();
         RetrofitClient.getRetrofitInstance()
                 .create(ApiInterface.class)
-                .updateProfile(name,phone,method,aboutMe,job_type_id,job_title_id,city_id,district_id,is_available)
+                .updateProfile(name, phone, method, aboutMe, job_type_id, job_title_id, city_id, district_id, is_available)
                 .enqueue(new Callback<User>() {
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
 
-                        if (response.isSuccessful()){
+                        if (response.isSuccessful()) {
                             Toast.makeText(CompleteInfoActivity.this, "تم تحديث بياناتك ", Toast.LENGTH_SHORT).show();
                             pd.dismiss();
                         }
@@ -195,6 +205,7 @@ public class CompleteInfoActivity extends AppCompatActivity {
                             listJobType = response.body();
                             for (int i = 0; i < listJobType.size(); i++) {
 
+                                Log.e("JobsType", "onResponse: " + listJobType.get(i).getName());
                                 adapter = new AdapterCity(CompleteInfoActivity.this, listJobType);
                                 spJopType.setAdapter(adapter);
 
@@ -310,5 +321,7 @@ public class CompleteInfoActivity extends AppCompatActivity {
         spCity = (Spinner) findViewById(R.id.spCity);
         spDistrict = (Spinner) findViewById(R.id.spDistrict);
         confirmButton = (Button) findViewById(R.id.confirm_button);
+        etName = (EditText) findViewById(R.id.etName);
+        etPhoneNum = (EditText) findViewById(R.id.etPhoneNum);
     }
 }

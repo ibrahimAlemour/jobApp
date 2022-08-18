@@ -56,6 +56,13 @@ public interface ApiInterface {
                              @Part("is_available") int is_available
     );
 
+    @Multipart
+    @POST("user/update-profile")
+    Call<User> updateProfileUser(@Part("name") String name,
+                             @Part("phone") String phone,
+                             @Part("_method") String _method
+    );
+
 
     @FormUrlEncoded
     @POST("saved-job")
