@@ -9,7 +9,7 @@ public class UserInJob {
     private Object email_verified_at;
     private String phone;
     private String user_type;
-    private Object rating;
+    private int rating;
     private String about_me;
     private Object lat;
     private Object lng;
@@ -47,7 +47,7 @@ public class UserInJob {
         return user_type;
     }
 
-    public Object getRating() {
+    public int getRating() {
         return rating;
     }
 

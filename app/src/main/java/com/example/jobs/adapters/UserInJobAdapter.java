@@ -71,6 +71,7 @@ public class UserInJobAdapter extends RecyclerView.Adapter<UserInJobAdapter.Cate
                 intent.putExtra("me",user.getAbout_me());
                 intent.putExtra("idJob",user.getJob_title_id());
                 intent.putExtra("idEmp",user.getId());
+                intent.putExtra("rate",user.getRating());
                 context.startActivity(intent);
             }
         });

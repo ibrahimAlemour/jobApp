@@ -43,9 +43,11 @@ public class UserInJobActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
 
-       // if (bundle.getInt("id").isEmpty()){
+        if (bundle != null ) {
             id = bundle.getInt("id");
-            Log.e("UserInJob", "onCreate: "+id );
+            Log.e("UserInJob", "onCreate: " + id);
+
+        }
 
 
 

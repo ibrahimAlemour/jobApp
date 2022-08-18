@@ -11,9 +11,13 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.example.jobs.adapters.AdapterCity;
 import com.example.jobs.api.ApiInterface;
 import com.example.jobs.api.RetrofitClient;
+import com.example.jobs.model.City;
 import com.example.jobs.model.MsSaveJob;
+
+import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -23,6 +27,7 @@ import retrofit2.Retrofit;
 
 public class UserInfoActivity extends AppCompatActivity {
 
+    ArrayList<City> listJobTitle = new ArrayList<>();
     private ConstraintLayout linear;
     private CircleImageView imgPerson;
     private TextView tvName;
@@ -32,6 +37,7 @@ public class UserInfoActivity extends AppCompatActivity {
     private TextView tv2ui;
     private RatingBar ratingBar;
     private Button btnInventions;
+    private int idJob;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,47 +48,27 @@ public class UserInfoActivity extends AppCompatActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         Bundle bundle = getIntent().getExtras();
-        if (bundle != null){
+        if (bundle != null) {
 
-           tvName.setText(bundle.getString("name"));
-           tvAboutMe.setText(bundle.getString("me"));
+            tvName.setText(bundle.getString("name"));
+            tvAboutMe.setText(bundle.getString("me"));
+            idJob = bundle.getInt("idJob");
 
 
-        btnInventions.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            btnInventions.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
-                postInvention(bundle.getInt("idEmp"),bundle.getInt("idJob"));
-            }
-        });
+                    postInvention(bundle.getInt("idEmp"), bundle.getInt("idJob"));
+                }
+            });
+
+            getJobTitle();
 
         }
 
-
-
-
     }
 
-    private void postInvention(int idEmp , int idJop) {
-        RetrofitClient.getRetrofitInstance()
-                .create(ApiInterface.class)
-                .JobInvention(idJop,idEmp)
-                .enqueue(new Callback<MsSaveJob>() {
-                    @Override
-                    public void onResponse(Call<MsSaveJob> call, Response<MsSaveJob> response) {
-
-                        if (response.isSuccessful()){
-
-                            Toast.makeText(UserInfoActivity.this, "تم ارسال الدعوة", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<MsSaveJob> call, Throwable t) {
-
-                    }
-                });
-    }
 
     private void initView() {
         linear = (ConstraintLayout) findViewById(R.id.linear);
@@ -95,4 +81,57 @@ public class UserInfoActivity extends AppCompatActivity {
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         btnInventions = (Button) findViewById(R.id.btnInventions);
     }
+
+
+
+    private void postInvention(int idEmp, int idJop) {
+        RetrofitClient.getRetrofitInstance()
+                .create(ApiInterface.class)
+                .JobInvention(idJop, idEmp)
+                .enqueue(new Callback<MsSaveJob>() {
+                    @Override
+                    public void onResponse(Call<MsSaveJob> call, Response<MsSaveJob> response) {
+
+                        if (response.isSuccessful()) {
+
+                            Toast.makeText(UserInfoActivity.this, "تم ارسال الدعوة", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<MsSaveJob> call, Throwable t) {
+
+                    }
+                });
+    }
+
+
+    private void getJobTitle() {
+
+        RetrofitClient.getRetrofitInstance()
+                .create(ApiInterface.class)
+                .getJopsTitle()
+                .enqueue(new Callback<ArrayList<City>>() {
+                    @Override
+                    public void onResponse(Call<ArrayList<City>> call, Response<ArrayList<City>> response) {
+
+                        if (response.isSuccessful()) {
+                            listJobTitle = response.body();
+                            for (int i = 0; i < listJobTitle.size(); i++) {
+
+                                if (listJobTitle.get(i).getId() == idJob){
+                                    tvJob.setText(listJobTitle.get(i).getName());
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ArrayList<City>> call, Throwable t) {
+
+                    }
+                });
+
+    }
+
 }

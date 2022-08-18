@@ -50,6 +50,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Cateco
 
                 Intent intent = new Intent(context, UserInJobActivity.class);
                 intent.putExtra("id",category.getId());
+                intent.putExtra("jobTitle",category.getName());
                 context.startActivity(intent);
             }
         });
