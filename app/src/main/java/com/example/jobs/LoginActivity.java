@@ -126,7 +126,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                     }
 
-                                    Toast.makeText(LoginActivity.this, "Welcome" + name + "|*|" + typeUser, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(LoginActivity.this, "مرحبا بك", Toast.LENGTH_SHORT).show();
 
                                     pd.dismiss();
 

@@ -95,7 +95,7 @@ public class OrderExecutionActivity extends AppCompatActivity {
 
         RetrofitClient.getRetrofitInstance()
                 .create(ApiInterface.class)
-                .jobFinish(job_id)
+                .jobStart(job_id)
                 .enqueue(new Callback<MsSaveJob>() {
                     @Override
                     public void onResponse(Call<MsSaveJob> call, Response<MsSaveJob> response) {

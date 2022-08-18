@@ -127,9 +127,9 @@ public interface ApiInterface {
     Call<MsSaveJob> jobStatus(@Path("id") int id,
                               @Field("job_status_id") int job_status_id);
 
-    // @FormUrlEncoded
-    @PUT("job/{id}/finish-job")
-    Call<MsSaveJob> jobFinish(@Path("id") int id);
+
+    @PUT("job/{id}/start-job")
+    Call<MsSaveJob> jobStart(@Path("id") int id);
 
 
 }
