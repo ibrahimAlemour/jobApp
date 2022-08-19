@@ -1,10 +1,12 @@
 package com.example.jobs.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -12,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jobs.R;
+import com.example.jobs.WorkApplicationActivity;
 import com.example.jobs.model.MyPostedJobs;
 
 import java.util.ArrayList;
@@ -43,6 +46,16 @@ public class MyPostedJobsOwnerAdapter extends RecyclerView.Adapter<MyPostedJobsO
         holder.tvTitle.setText(myJobs.title);
         holder.tvState.setText(myJobs.job_status.name);
 
+        holder.container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(context, WorkApplicationActivity.class);
+                intent.putExtra("idJob",myJobs.id);
+                context.startActivity(intent);
+            }
+        });
+
         Log.e("JopState", "onBindViewHolder: "+myJobs.job_status.name );
 
         if (myJobs.job_status.name.contains("منتهية")){
@@ -66,6 +79,7 @@ public class MyPostedJobsOwnerAdapter extends RecyclerView.Adapter<MyPostedJobsO
     class OpenTalabsViewHolder extends RecyclerView.ViewHolder {
         TextView tvTitle , tvState ;
         Spinner spState;
+        LinearLayout container;
 
         public OpenTalabsViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -73,6 +87,7 @@ public class MyPostedJobsOwnerAdapter extends RecyclerView.Adapter<MyPostedJobsO
             tvTitle = itemView.findViewById(R.id.tvTitle);
             spState = itemView.findViewById(R.id.spState);
             tvState = itemView.findViewById(R.id.tvState);
+            container = itemView.findViewById(R.id.container);
 
 
 

@@ -1,9 +1,11 @@
 package com.example.jobs;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,12 +32,19 @@ public class OrderExecutionActivity extends AppCompatActivity {
     private int id;
     private ImageView imgSave;
     private AppCompatButton btnRunJob;
+    private EditText etProposal;
+    private EditText etPrice;
+    ProgressDialog pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_execution);
         initView();
+
+        //Dialog
+        pd = new ProgressDialog(this);
+        pd.setMessage("جاري الإرسال ...");
 
         getSupportActionBar().hide();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -48,7 +57,7 @@ public class OrderExecutionActivity extends AppCompatActivity {
 
             id = bundle.getInt("job_id");
 
-            Log.e("JobID", "onCreate: "+id );
+            Log.e("JobID", "onCreate: " + id);
 
             tvTitle.setText(bundle.getString("title"));
             tvNameOwner.setText(bundle.getString("-"));
@@ -72,7 +81,10 @@ public class OrderExecutionActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
 
-                    runJob(id);
+                    String proposal =etProposal.getText().toString().toString();
+                    int price = Integer.parseInt(etPrice.getText().toString().toString());
+                    runJob(proposal,price,id);
+
                 }
             });
 
@@ -89,18 +101,26 @@ public class OrderExecutionActivity extends AppCompatActivity {
         tvDescription = (TextView) findViewById(R.id.tvDescription);
         imgSave = (ImageView) findViewById(R.id.imgSave);
         btnRunJob = (AppCompatButton) findViewById(R.id.btnStartJob);
+        etProposal = (EditText) findViewById(R.id.etProposal);
+        etPrice = (EditText) findViewById(R.id.etPrice);
     }
 
-    private void runJob(int job_id) {
+    private void runJob(String des , int price ,int job_id) {
 
+        pd.show();
         RetrofitClient.getRetrofitInstance()
                 .create(ApiInterface.class)
-                .jobStart(job_id)
+                .ApplicationJob(job_id,des,price)
                 .enqueue(new Callback<MsSaveJob>() {
                     @Override
                     public void onResponse(Call<MsSaveJob> call, Response<MsSaveJob> response) {
 
-                        Log.e("JobStatus", "onResponse: "+response.body().message );
+                        Log.e("JobApplication", "onResponse: " + response.body().message);
+                        if (response.isSuccessful()){
+
+                            Toast.makeText(OrderExecutionActivity.this, "تم إرسال العرض ", Toast.LENGTH_SHORT).show();
+                            pd.dismiss();
+                        }
 
                     }
 

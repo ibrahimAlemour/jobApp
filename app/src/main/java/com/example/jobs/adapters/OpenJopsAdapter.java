@@ -44,7 +44,7 @@ public class OpenJopsAdapter extends RecyclerView.Adapter<OpenJopsAdapter.OpenTa
 
         holder.name_tv.setText(ss.title);
         holder.text_tv.setText(ss.description);
-        Log.e("JopOpen", "onBindViewHolder: "+ss.is_saved );
+        Log.e("JopOpenID", "onBindViewHolder: "+ss.id );
 
         holder.container.setOnClickListener(new View.OnClickListener() {
             @Override

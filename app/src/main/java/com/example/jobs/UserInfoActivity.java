@@ -1,6 +1,7 @@
 package com.example.jobs;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -53,6 +54,9 @@ public class UserInfoActivity extends AppCompatActivity {
             tvName.setText(bundle.getString("name"));
             tvAboutMe.setText(bundle.getString("me"));
             idJob = bundle.getInt("idJob");
+            double rate = bundle.getDouble("rate");
+            Log.e("RateEmployee", "onCreate: "+rate );
+            ratingBar.setRating((float) rate);
 
 
             btnInventions.setOnClickListener(new View.OnClickListener() {

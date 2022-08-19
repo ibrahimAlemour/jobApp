@@ -5,6 +5,7 @@
     >
 
     <LinearLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="115dp"
         android:layout_margin="8dp"
@@ -17,6 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:paddingHorizontal="16dp"
+            android:gravity="right"
             android:text="تصليح باب خشبي مزدوج "
             android:textColor="@color/purple_700"
             android:textSize="16sp"
@@ -37,7 +39,7 @@
                 android:textSize="14sp"
                 android:entries="@array/talab"
                 android:layout_weight="1"
-
+                android:visibility="gone"
                 />
 
             <TextView

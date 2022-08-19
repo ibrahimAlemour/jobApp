@@ -4,10 +4,12 @@ package com.example.jobs.api;
 import com.example.jobs.model.Category;
 import com.example.jobs.model.City;
 import com.example.jobs.model.District;
+import com.example.jobs.model.EmpSendTalab;
 import com.example.jobs.model.JobsOpen;
 import com.example.jobs.model.MsSaveJob;
 import com.example.jobs.model.MyPostedJobs;
 import com.example.jobs.model.Notifications;
+import com.example.jobs.model.OwnerReceiveTalab;
 import com.example.jobs.model.SavedJobs;
 import com.example.jobs.model.User;
 import com.example.jobs.model.UserInJob;
@@ -59,8 +61,8 @@ public interface ApiInterface {
     @Multipart
     @POST("user/update-profile")
     Call<User> updateProfileUser(@Part("name") String name,
-                             @Part("phone") String phone,
-                             @Part("_method") String _method
+                                 @Part("phone") String phone,
+                                 @Part("_method") String _method
     );
 
 
@@ -81,6 +83,23 @@ public interface ApiInterface {
                            @Field("district_id") int district_id,
                            @Field("job_type_id") int job_type_id
     );
+
+    @Multipart
+    @POST("job-application")
+    Call<MsSaveJob> ApplicationJob(@Part("job_id") int job_id,
+                                   @Part("description") String description,
+                                   @Part("price") int price
+    );
+
+    @Multipart
+    @POST("rating")
+    Call<MsSaveJob> setRating(@Part("job_id") int job_id,
+                              @Part("emp_user_id") int emp_user_id,
+                              @Part("rating") double rating
+    );
+
+    @GET("job/{id}/applications")
+    Call<ArrayList<OwnerReceiveTalab>> getReceiveTalab(@Path("id") int id);
 
     @GET("user/profile")
     Call<UserProfile> getProfile();
@@ -108,6 +127,9 @@ public interface ApiInterface {
     @GET("job/my-posted-jobs")
     Call<ArrayList<MyPostedJobs>> getMyPostedJobs();
 
+    @GET("job-application/my-applied-jobs")
+    Call<ArrayList<EmpSendTalab>> getMyJobsEmp();
+
     @GET("notification/my-notifications")
     Call<ArrayList<Notifications>> getMyNotifications();
 
@@ -121,6 +143,9 @@ public interface ApiInterface {
     @GET("city")
     Call<ArrayList<City>> getCity();
 
+    @GET("job-status")
+    Call<ArrayList<City>> getJobStatus();
+
 
     @FormUrlEncoded
     @PUT("job/{id}/update-job-status")
@@ -128,8 +153,14 @@ public interface ApiInterface {
                               @Field("job_status_id") int job_status_id);
 
 
-    @PUT("job/{id}/start-job")
-    Call<MsSaveJob> jobStart(@Path("id") int id);
+    @PUT("job/{id}/finish-job")
+    Call<MsSaveJob> jobFinish(@Path("id") int id);
+
+    @FormUrlEncoded
+    @PUT("job/{id}/assign-job-to-employee")
+    Call<MsSaveJob> SelectEmp(@Path("id") int id,
+                              @Field("emp_user_id") int emp_user_id
+    );
 
 
 }

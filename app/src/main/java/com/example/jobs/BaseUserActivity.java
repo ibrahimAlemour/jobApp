@@ -13,7 +13,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class BaseUserActivity extends AppCompatActivity {
 
-    TextView s ;
+    TextView s;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +23,7 @@ public class BaseUserActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        s= findViewById(R.id.tvTitleToolbar);
+        s = findViewById(R.id.tvTitleToolbar);
         s.setText("الرئيسية");
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigationvieww);
@@ -47,17 +47,19 @@ public class BaseUserActivity extends AppCompatActivity {
                             selectedFragment = new HomeUserFragment();
 
                             break;
+
                         case R.id.addWork:
                             selectedFragment = new AddWorkUserFragment();
                             s.setText("إضافة عمل");
 
                             break;
+
+
                         case R.id.talabatyuser:
                             selectedFragment = new TalabatyUserFragment();
                             s.setText("طلباتي");
 
                             break;
-
 
 
                         case R.id.profile_user_Fragment:

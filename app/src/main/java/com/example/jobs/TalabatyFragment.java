@@ -3,7 +3,6 @@ package com.example.jobs;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -13,18 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.jobs.adapters.ArchiveAdapter;
 import com.example.jobs.adapters.MyPostedJobsAdapter;
-import com.example.jobs.adapters.OpenJopsAdapter;
-import com.example.jobs.adapters.SavedJobsAdapter;
-import com.example.jobs.adapters.TalabAdapter;
 import com.example.jobs.api.ApiInterface;
 import com.example.jobs.api.RetrofitClient;
-import com.example.jobs.model.Archive;
-import com.example.jobs.model.JobsOpen;
-import com.example.jobs.model.MyPostedJobs;
-import com.example.jobs.model.SavedJobs;
-import com.example.jobs.model.Talab;
+import com.example.jobs.model.EmpSendTalab;
 
 import java.util.ArrayList;
 
@@ -35,7 +26,7 @@ import retrofit2.Response;
 
 public class TalabatyFragment extends Fragment {
 
-    ArrayList<MyPostedJobs> listJobs = new ArrayList<>();
+    ArrayList<EmpSendTalab> listJobs = new ArrayList<>();
     private SwipeRefreshLayout swipRefresh;
     MyPostedJobsAdapter myPostedJobsAdapter;
     RecyclerView rvJop;
@@ -67,10 +58,10 @@ public class TalabatyFragment extends Fragment {
         swipRefresh.setRefreshing(true);
         RetrofitClient.getRetrofitInstance()
                 .create(ApiInterface.class)
-                .getMyPostedJobs()
-                .enqueue(new Callback<ArrayList<MyPostedJobs>>() {
+                .getMyJobsEmp()
+                .enqueue(new Callback<ArrayList<EmpSendTalab>>() {
                     @Override
-                    public void onResponse(Call<ArrayList<MyPostedJobs>> call, Response<ArrayList<MyPostedJobs>> response) {
+                    public void onResponse(Call<ArrayList<EmpSendTalab>> call, Response<ArrayList<EmpSendTalab>> response) {
 
                         if (response.isSuccessful()) {
 
@@ -97,7 +88,7 @@ public class TalabatyFragment extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<ArrayList<MyPostedJobs>> call, Throwable t) {
+                    public void onFailure(Call<ArrayList<EmpSendTalab>> call, Throwable t) {
 
                         swipRefresh.setRefreshing(false);
                         Log.e("MyPostedJobs", "onFailure: "+t.getMessage() );
