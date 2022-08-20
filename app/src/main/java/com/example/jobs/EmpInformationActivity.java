@@ -103,7 +103,7 @@ public class EmpInformationActivity extends AppCompatActivity {
                 public void onClick(View view) {
 
                     SelectEmp(emp_user_id, job_id);
-                    postInvention(emp_user_id, job_id);
+                   // postInvention(emp_user_id, job_id);
 
                 }
             });

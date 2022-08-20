@@ -84,6 +84,16 @@ public interface ApiInterface {
                            @Field("job_type_id") int job_type_id
     );
 
+    @FormUrlEncoded
+    @POST("job_invitation")
+    Call<MsSaveJob> AddJobInvitation(@Field("title") String title,
+                           @Field("description") String description,
+                           @Field("city_id") int city_id,
+                           @Field("district_id") int district_id,
+                           @Field("job_type_id") int job_type_id,
+                           @Field("emp_user_id") int emp_user_id
+    );
+
     @Multipart
     @POST("job-application")
     Call<MsSaveJob> ApplicationJob(@Part("job_id") int job_id,
@@ -136,6 +146,9 @@ public interface ApiInterface {
 
     @GET("user/{id}")
     Call<UserProfile> getUserById(@Path("id") int id_User);
+
+    @GET("job/{id}")
+    Call<JobsOpen> getJobById(@Path("id") int id);
 
     @GET("city/{id}/district")
     Call<ArrayList<District>> getDistrict(@Path("id") int id);

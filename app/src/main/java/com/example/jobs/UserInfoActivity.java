@@ -1,5 +1,6 @@
 package com.example.jobs;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -66,7 +67,10 @@ public class UserInfoActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
 
-                    postInvention(bundle.getInt("idEmp"), bundle.getInt("idJob"));
+                   // postInvention(bundle.getInt("idEmp"), bundle.getInt("idJob"));
+                    Intent intent = new Intent(UserInfoActivity.this,SendInvitationActivity.class);
+                    intent.putExtra("EmpId",bundle.getInt("idEmp"));
+                    startActivity(intent);
                 }
             });
 

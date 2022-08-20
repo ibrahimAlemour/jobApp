@@ -1,7 +1,14 @@
 package com.example.jobs;
 
+import android.Manifest;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -12,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.core.app.ActivityCompat;
 
 import com.example.jobs.api.ApiInterface;
 import com.example.jobs.api.RetrofitClient;
@@ -54,7 +62,6 @@ public class OrderExecutionActivity extends AppCompatActivity {
 
             int user_id = bundle.getInt("user_id");
             getUserById(user_id);
-
             id = bundle.getInt("job_id");
 
             Log.e("JobID", "onCreate: " + id);
@@ -77,13 +84,15 @@ public class OrderExecutionActivity extends AppCompatActivity {
                 });
             }
 
+
+
             btnRunJob.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
-                    String proposal =etProposal.getText().toString().toString();
+                    String proposal = etProposal.getText().toString().toString();
                     int price = Integer.parseInt(etPrice.getText().toString().toString());
-                    runJob(proposal,price,id);
+                    runJob(proposal, price, id);
 
                 }
             });
@@ -105,18 +114,18 @@ public class OrderExecutionActivity extends AppCompatActivity {
         etPrice = (EditText) findViewById(R.id.etPrice);
     }
 
-    private void runJob(String des , int price ,int job_id) {
+    private void runJob(String des, int price, int job_id) {
 
         pd.show();
         RetrofitClient.getRetrofitInstance()
                 .create(ApiInterface.class)
-                .ApplicationJob(job_id,des,price)
+                .ApplicationJob(job_id, des, price)
                 .enqueue(new Callback<MsSaveJob>() {
                     @Override
                     public void onResponse(Call<MsSaveJob> call, Response<MsSaveJob> response) {
 
                         Log.e("JobApplication", "onResponse: " + response.body().message);
-                        if (response.isSuccessful()){
+                        if (response.isSuccessful()) {
 
                             Toast.makeText(OrderExecutionActivity.this, "تم إرسال العرض ", Toast.LENGTH_SHORT).show();
                             pd.dismiss();
@@ -143,6 +152,22 @@ public class OrderExecutionActivity extends AppCompatActivity {
 
                         if (response.isSuccessful()) {
                             tvNameOwner.setText(response.body().name);
+                            Log.e("PhoneOwner", "onResponse: " + response.body().phone);
+
+                            tvNameOwner.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+
+                                    Toast.makeText(OrderExecutionActivity.this, "جاري الإتصال", Toast.LENGTH_SHORT).show();
+
+                                    Intent callIntent = new Intent(Intent.ACTION_CALL);
+                                    callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    callIntent.setData(Uri.parse("tel:"+response.body().phone));
+                                    startActivity(callIntent);
+
+                                }
+                            });
+
                         }
                     }
 
@@ -171,5 +196,9 @@ public class OrderExecutionActivity extends AppCompatActivity {
                     }
                 });
     }
+
+
+
+
 
 }

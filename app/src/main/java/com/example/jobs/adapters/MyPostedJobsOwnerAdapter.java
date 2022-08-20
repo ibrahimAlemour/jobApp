@@ -60,12 +60,14 @@ public class MyPostedJobsOwnerAdapter extends RecyclerView.Adapter<MyPostedJobsO
 
         if (myJobs.job_status.name.contains("منتهية")){
 
-            holder.tvState.setBackgroundResource(R.color.m);
-        } else if (myJobs.job_status.name.contains("قيد التنفيذ")){
             holder.tvState.setBackgroundResource(R.color.q);
+        } else if (myJobs.job_status.name.contains("قيد التنفيذ")){
+            holder.tvState.setBackgroundResource(R.color.m);
 
         }else if (myJobs.job_status.name.contains("بانتظار المزود")){
             holder.tvState.setBackgroundResource(R.color.w);
+        }else if (myJobs.job_status.name.contains("بدون مهني")){
+            holder.tvState.setBackgroundResource(R.color.n);
         }
 
 

@@ -14,9 +14,6 @@
         android:supportsRtl="false"
         android:theme="@style/Theme.Jobs">
         <activity
-            android:name=".ContactActivity"
-            android:exported="false" />
-        <activity
             android:name=".EmpInformationActivity"
             android:exported="false" />
         <activity

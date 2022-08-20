@@ -2,18 +2,17 @@ package com.example.jobs;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.jobs.adapters.AdapterCity;
 import com.example.jobs.adapters.AdapterDistrict;
@@ -29,39 +28,45 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AddWorkUserFragment extends Fragment {
-    Spinner spinerCity,spDistrict;
+public class SendInvitationActivity extends AppCompatActivity {
+
     ArrayList<City> list = new ArrayList<>();
     ArrayList<District> districtList = new ArrayList<>();
     AdapterCity adapter;
     AdapterDistrict adapterDistrict;
     int id_city;
     int id_dis;
-    Button btnAddJob;
-    EditText etDes,etTitle;
     ProgressDialog pd;
-
+    private TextView tv1;
+    private EditText etTitle;
+    private TextView tv2;
+    private EditText etDes;
+    private TextView tv3;
+    private TextView available;
+    private Spinner area;
+    private Spinner spDistrict;
+    private Button btnAddJob;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_add_work_user, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_send_invitation);
+        initView();
 
-        spinerCity = v.findViewById(R.id.area);
-        spDistrict = v.findViewById(R.id.spDistrict);
-        btnAddJob = v.findViewById(R.id.btnAddJob);
-        etDes = v.findViewById(R.id.etDes);
-        etTitle = v.findViewById(R.id.etTitle);
+        getSupportActionBar().hide();
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
 
         //Dialog
-        pd = new ProgressDialog(getContext());
-        pd.setMessage("جاري نشر الطلب ...");
+        pd = new ProgressDialog(this);
+        pd.setMessage("جاري الإرسال ...");
 
         getCity();
 
 
-        spinerCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+
+        area.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
@@ -93,51 +98,63 @@ public class AddWorkUserFragment extends Fragment {
 
             }
         });
-        btnAddJob.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                String title = etTitle.getText().toString().trim();
-                String des = etDes.getText().toString().trim();
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            int empId = bundle.getInt("EmpId");
+            btnAddJob.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    String title = etTitle.getText().toString().trim();
+                    String des = etDes.getText().toString().trim();
 
 
-                if (title.isEmpty() || des.isEmpty()){
-                    Toast.makeText(getContext(), "الرجاء تعبئة جميع البيانات !", Toast.LENGTH_SHORT).show();
-                }else {
+                    if (title.isEmpty() || des.isEmpty()) {
+                        Toast.makeText(SendInvitationActivity.this, "الرجاء تعبئة جميع البيانات !", Toast.LENGTH_SHORT).show();
+                    } else {
 
-                    addJob(title,des,id_city,id_dis);
+                        addJob(title, des, id_city, id_dis,empId);
+
+                    }
 
                 }
+            });
 
-            }
-        });
-
-
-
-
-
-        return v;
+        }
     }
 
-    private void addJob(String title , String des , int city, int dis) {
+    private void initView() {
+        tv1 = (TextView) findViewById(R.id.tv_1);
+        etTitle = (EditText) findViewById(R.id.etTitle);
+        tv2 = (TextView) findViewById(R.id.tv_2);
+        etDes = (EditText) findViewById(R.id.etDes);
+        tv3 = (TextView) findViewById(R.id.tv_3);
+        available = (TextView) findViewById(R.id.available);
+        area = (Spinner) findViewById(R.id.area);
+        spDistrict = (Spinner) findViewById(R.id.spDistrict);
+        btnAddJob = (Button) findViewById(R.id.btnAddJob);
+    }
+
+    private void addJob(String title , String des , int city, int dis,int emp_user_id) {
         pd.show();
         RetrofitClient.getRetrofitInstance()
                 .create(ApiInterface.class)
-                .AddJob(title,des,city,dis,1)
+                .AddJobInvitation(title,des,city,dis,1,emp_user_id)
                 .enqueue(new Callback<MsSaveJob>() {
                     @Override
                     public void onResponse(Call<MsSaveJob> call, Response<MsSaveJob> response) {
 
                         if (response.isSuccessful()){
 
-                            Toast.makeText(getContext(), "تم نشر طلبك", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SendInvitationActivity.this, "تم ارسال الدعوة", Toast.LENGTH_SHORT).show();
                             pd.dismiss();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<MsSaveJob> call, Throwable t) {
-                        Toast.makeText(getContext(), "هناك خطأ ما ", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SendInvitationActivity.this, "هناك خطأ ما ", Toast.LENGTH_SHORT).show();
                         pd.dismiss();
                     }
                 });
@@ -160,8 +177,8 @@ public class AddWorkUserFragment extends Fragment {
 
                                 Log.e("TAG", "City: " + response.body().get(i).getName());
 
-                                adapter = new AdapterCity(getActivity(), list);
-                                spinerCity.setAdapter(adapter);
+                                adapter = new AdapterCity(SendInvitationActivity.this, list);
+                                area.setAdapter(adapter);
 
 
                             }
@@ -191,7 +208,7 @@ public class AddWorkUserFragment extends Fragment {
 
                                 Log.e("TAG", "City: " + response.body().get(i).getName());
 
-                                adapterDistrict = new AdapterDistrict(getActivity(), districtList);
+                                adapterDistrict = new AdapterDistrict(SendInvitationActivity.this, districtList);
                                 spDistrict.setAdapter(adapterDistrict);
 
 

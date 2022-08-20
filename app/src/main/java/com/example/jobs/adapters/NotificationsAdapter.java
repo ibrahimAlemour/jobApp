@@ -1,9 +1,11 @@
 package com.example.jobs.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -11,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jobs.R;
+import com.example.jobs.ShowDataFromNotificationActivity;
 import com.example.jobs.api.ApiInterface;
 import com.example.jobs.api.RetrofitClient;
 import com.example.jobs.model.Notifications;
@@ -47,14 +50,17 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
         final Notifications notification = notifications.get(position);
 
 
-        // holder.name_tv.setText(notification.subject);
         getUserById(holder, notification.user_id);
         holder.text_tv.setText(notification.subject);
 
-        holder.text_tv.setOnClickListener(new View.OnClickListener() {
+
+        holder.container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "" + notification.created_at, Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(context, ShowDataFromNotificationActivity.class);
+                intent.putExtra("jobId",notification.data);
+                context.startActivity(intent);
             }
         });
 
@@ -67,12 +73,15 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
 
     class NotifyViewHolder extends RecyclerView.ViewHolder {
         public TextView name_tv, text_tv;
+        LinearLayout container;
+
 
         public NotifyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             name_tv = itemView.findViewById(R.id.notify_name);
             text_tv = itemView.findViewById(R.id.notify_text);
+            container = itemView.findViewById(R.id.container2);
 
 
         }

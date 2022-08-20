@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -55,7 +56,7 @@ public class UserInJobAdapter extends RecyclerView.Adapter<UserInJobAdapter.Cate
 
         getCity(holder, user.getCity_id());
         holder.tv_name.setText(user.getName());
-        //holder.tvPlace.setText(user.get());
+        holder.rating2.setRating((float) user.getRating());
         if (user.getIs_available() == 1) {
             holder.tvAvaliables.setText("متاح");
         } else {
@@ -86,6 +87,7 @@ public class UserInJobAdapter extends RecyclerView.Adapter<UserInJobAdapter.Cate
     class CatecoryViewHolder extends RecyclerView.ViewHolder {
         TextView tv_name, tvAvaliables, tvPlace;
         CardView container;
+        RatingBar rating2;
 
         public CatecoryViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -94,6 +96,7 @@ public class UserInJobAdapter extends RecyclerView.Adapter<UserInJobAdapter.Cate
             tvAvaliables = itemView.findViewById(R.id.tvAvaliables);
             tvPlace = itemView.findViewById(R.id.tvPlace);
             container = itemView.findViewById(R.id.container);
+            rating2 = itemView.findViewById(R.id.rating2);
 
 
         }

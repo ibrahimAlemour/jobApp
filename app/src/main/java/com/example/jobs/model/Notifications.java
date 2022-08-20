@@ -9,7 +9,7 @@ public class Notifications {
     public String status;
     public String subject;
     public String body;
-    private Object data;
+    public String data;
     public String created_at;
     public String updated_at;
 }

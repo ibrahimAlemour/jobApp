@@ -156,11 +156,13 @@ public class CompleteInfoActivity extends AppCompatActivity {
                 public void onClick(View view) {
 
                     String aboutMe = etDescription.getText().toString().trim();
+                    String nameEmp = etName.getText().toString().trim();
+                    String phoneEmp = etPhoneNum.getText().toString().trim();
                     if (aboutMe.isEmpty()) {
                         Toast.makeText(CompleteInfoActivity.this, "الرجاء تعبئة الوصف !", Toast.LENGTH_SHORT).show();
                     } else {
 
-                        updateProfile(name, phone, "PUT", aboutMe, id_jobType, id_jobTitle, id_city, id_dis, 1);
+                        updateProfile(nameEmp, phoneEmp, "PUT", aboutMe, id_jobType, id_jobTitle, id_city, id_dis, 1);
                     }
                 }
             });
