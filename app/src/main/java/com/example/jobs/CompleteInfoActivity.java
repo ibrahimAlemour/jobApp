@@ -76,6 +76,7 @@ public class CompleteInfoActivity extends AppCompatActivity {
             String phone = bundle.getString("phone");
             String aboutMe = bundle.getString("aboutMe");
 
+
             etDescription.setText(aboutMe);
             etName.setText(name);
             etPhoneNum.setText(phone);

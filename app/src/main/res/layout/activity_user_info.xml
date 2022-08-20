@@ -83,6 +83,7 @@
         android:padding="16dp"
         android:textDirection="rtl"
         android:textSize="14sp"
+        android:textColor="@color/black"
         app:barrierMargin="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

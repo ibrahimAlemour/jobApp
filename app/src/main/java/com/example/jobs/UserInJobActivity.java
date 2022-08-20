@@ -38,6 +38,8 @@ public class UserInJobActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+
+
         swipRefresh = (SwipeRefreshLayout) findViewById(R.id.swip_refresh);
         rvc = findViewById(R.id.rvc);
 

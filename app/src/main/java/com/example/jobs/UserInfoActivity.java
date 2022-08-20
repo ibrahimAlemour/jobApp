@@ -58,6 +58,9 @@ public class UserInfoActivity extends AppCompatActivity {
             Log.e("RateEmployee", "onCreate: "+rate );
             ratingBar.setRating((float) rate);
 
+            Log.d("mehere", "onCreate: "+bundle.getString("name") );
+            Log.d("mehere", "onCreate: "+bundle.getString("me") );
+
 
             btnInventions.setOnClickListener(new View.OnClickListener() {
                 @Override

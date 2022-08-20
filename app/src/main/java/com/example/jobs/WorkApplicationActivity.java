@@ -6,6 +6,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.WindowManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jobs.adapters.MyPostedJobsAdapter;
@@ -27,12 +29,19 @@ public class WorkApplicationActivity extends AppCompatActivity {
     private SwipeRefreshLayout swipRefresh;
     MyReceiveJobsAdapter myReceiveJobsAdapter;
     RecyclerView rvJop;
+    TextView v ;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_work_application);
+
+        getSupportActionBar().hide();
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        v= findViewById(R.id.tvTitleToolbar);
+        v.setText("المهنيون المتقدمون");
 
 
         Bundle bundle = getIntent().getExtras();
