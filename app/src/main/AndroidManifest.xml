@@ -4,7 +4,9 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
 
     <application
         android:allowBackup="true"
@@ -13,6 +15,10 @@
         android:roundIcon="@mipmap/ic_launcher_logo_round"
         android:supportsRtl="false"
         android:theme="@style/Theme.Jobs">
+        <activity
+            android:name=".ShowDataFromNotificationActivity"
+            android:exported="false" />
+
         <activity
             android:name=".EmpInformationActivity"
             android:exported="false" />

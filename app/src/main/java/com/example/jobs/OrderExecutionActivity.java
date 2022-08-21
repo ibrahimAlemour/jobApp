@@ -1,14 +1,11 @@
 package com.example.jobs;
 
 import android.Manifest;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -17,14 +14,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.example.jobs.api.ApiInterface;
 import com.example.jobs.api.RetrofitClient;
 import com.example.jobs.model.MsSaveJob;
 import com.example.jobs.model.UserProfile;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,7 +49,11 @@ public class OrderExecutionActivity extends AppCompatActivity {
     private EditText etProposal;
     private EditText etPrice;
     ProgressDialog pd;
+    private static final int REQUEST_CALL = 1;
+    private TextView tvPhone;
 
+    boolean isPhoneCall = false;
+    ActivityResultLauncher<String[]> mPLauncher;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,7 +95,6 @@ public class OrderExecutionActivity extends AppCompatActivity {
             }
 
 
-
             btnRunJob.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -98,6 +107,10 @@ public class OrderExecutionActivity extends AppCompatActivity {
             });
 
         }
+
+
+        //PermissionCallPhone
+        callPhone();
 
     }
 
@@ -112,6 +125,7 @@ public class OrderExecutionActivity extends AppCompatActivity {
         btnRunJob = (AppCompatButton) findViewById(R.id.btnStartJob);
         etProposal = (EditText) findViewById(R.id.etProposal);
         etPrice = (EditText) findViewById(R.id.etPrice);
+        tvPhone = (TextView) findViewById(R.id.tv_Phone);
     }
 
     private void runJob(String des, int price, int job_id) {
@@ -152,7 +166,9 @@ public class OrderExecutionActivity extends AppCompatActivity {
 
                         if (response.isSuccessful()) {
                             tvNameOwner.setText(response.body().name);
+                            tvPhone.setText(response.body().phone);
                             Log.e("PhoneOwner", "onResponse: " + response.body().phone);
+
 
                             tvNameOwner.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -162,7 +178,7 @@ public class OrderExecutionActivity extends AppCompatActivity {
 
                                     Intent callIntent = new Intent(Intent.ACTION_CALL);
                                     callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    callIntent.setData(Uri.parse("tel:"+response.body().phone));
+                                    callIntent.setData(Uri.parse("tel:" + response.body().phone));
                                     startActivity(callIntent);
 
                                 }
@@ -197,8 +213,41 @@ public class OrderExecutionActivity extends AppCompatActivity {
                 });
     }
 
+    private void callPhone(){
 
 
+        mPLauncher = registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(), new ActivityResultCallback<Map<String, Boolean>>() {
+            @Override
+            public void onActivityResult(Map<String, Boolean> result) {
 
+                if (result.get(Manifest.permission.CALL_PHONE)!= null){
+
+                    isPhoneCall = result.get(Manifest.permission.CALL_PHONE);
+                }
+
+            }
+        });
+
+        requestPermissions();
+    }
+
+
+    private void requestPermissions(){
+        isPhoneCall = ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.CALL_PHONE)==   PackageManager.PERMISSION_GRANTED;
+
+        List<String> pRequest = new ArrayList<String>();
+
+        if (!isPhoneCall){
+            pRequest.add(Manifest.permission.CALL_PHONE);
+        }
+
+        if (!pRequest.isEmpty()){
+
+            mPLauncher.launch(pRequest.toArray(new String[0]));
+        }
+
+    }
 
 }
