@@ -16,7 +16,8 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class RetrofitClient {
 
-    private static final String BASE_URL = "https://saidabdulla.com/mehan/public/api/";
+   // private static final String BASE_URL = "https://saidabdulla.com/mehan/public/api/";
+    private static final String BASE_URL = "https://mehan.optiona1.com/public/api/";
     public static Context context = null;
     public static Retrofit retrofit;
 

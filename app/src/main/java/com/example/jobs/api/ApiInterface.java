@@ -18,6 +18,8 @@ import com.example.jobs.model.UserProfile;
 import java.util.ArrayList;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 
@@ -27,6 +29,7 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 
 public interface ApiInterface {
@@ -69,6 +72,12 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("saved-job")
     Call<MsSaveJob> SaveJop(@Field("job_id") int job_id);
+
+    @DELETE("job-application")
+    Call<MsSaveJob> DeleteJop(@Query("job_id") int job_id);
+
+    @DELETE("saved-job")
+    Call<MsSaveJob> DeleteSavedJop(@Query("job_id") int job_id);
 
     @FormUrlEncoded
     @POST("job_invitation")
@@ -168,6 +177,18 @@ public interface ApiInterface {
 
     @PUT("job/{id}/finish-job")
     Call<MsSaveJob> jobFinish(@Path("id") int id);
+
+    @PUT("job/{id}/cancel-job")
+    Call<MsSaveJob> jobCancel(@Path("id") int id);
+
+    @FormUrlEncoded
+    @PUT("job/{id}")
+    Call<MsSaveJob> editJob(@Path("id") int id,
+                            @Field("title") String title,
+                            @Field("description") String description,
+                            @Field("city_id") int city_id,
+                            @Field("district_id") int district_id,
+                            @Field("job_type_id") int job_type_id);
 
     @FormUrlEncoded
     @PUT("job/{id}/assign-job-to-employee")

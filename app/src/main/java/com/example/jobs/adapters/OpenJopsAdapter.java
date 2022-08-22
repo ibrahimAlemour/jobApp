@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -46,22 +47,38 @@ public class OpenJopsAdapter extends RecyclerView.Adapter<OpenJopsAdapter.OpenTa
         holder.text_tv.setText(ss.description);
         Log.e("JopOpenID", "onBindViewHolder: "+ss.id );
 
-        holder.container.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        if (ss.is_applied_to_job == true){
 
-                Intent intent = new Intent(context, OrderExecutionActivity.class);
-                intent.putExtra("job_id",ss.id);
-                intent.putExtra("user_id",ss.user_id);
-                intent.putExtra("title",ss.title);
-                intent.putExtra("description",ss.description);
-                intent.putExtra("city",ss.city.name);
-                intent.putExtra("district",ss.district.name);
-                intent.putExtra("is_saved",ss.is_saved);
-                context.startActivity(intent);
+            holder.container.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
-            }
-        });
+                    Toast.makeText(context, "لقد تم التقديم على هذه الوظيفة من قبل", Toast.LENGTH_SHORT).show();
+
+                }
+            });
+
+        }else {
+
+            holder.container.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    Intent intent = new Intent(context, OrderExecutionActivity.class);
+                    intent.putExtra("job_id",ss.id);
+                    intent.putExtra("user_id",ss.user_id);
+                    intent.putExtra("title",ss.title);
+                    intent.putExtra("description",ss.description);
+                    intent.putExtra("city",ss.city.name);
+                    intent.putExtra("district",ss.district.name);
+                    intent.putExtra("is_saved",ss.is_saved);
+                    context.startActivity(intent);
+
+                }
+            });
+
+        }
+
 
     }
 

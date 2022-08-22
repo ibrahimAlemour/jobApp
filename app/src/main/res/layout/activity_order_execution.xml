@@ -245,7 +245,7 @@
                 android:background="@drawable/rounded_button"
                 android:backgroundTint="#0500f5"
                 android:paddingRight="22dp"
-                android:text="تنفيذ الخدمة "
+                android:text="تقديم طلب "
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:layout_marginBottom="32dp"

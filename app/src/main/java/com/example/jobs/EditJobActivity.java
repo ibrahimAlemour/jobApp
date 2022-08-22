@@ -1,7 +1,6 @@
 package com.example.jobs;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -29,7 +28,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SendInvitationActivity extends AppCompatActivity {
+public class EditJobActivity extends AppCompatActivity {
 
     ArrayList<City> list = new ArrayList<>();
     ArrayList<District> districtList = new ArrayList<>();
@@ -38,21 +37,21 @@ public class SendInvitationActivity extends AppCompatActivity {
     int id_city;
     int id_dis;
     ProgressDialog pd;
-    private TextView tv1;
+
     private EditText etTitle;
-    private TextView tv2;
     private EditText etDes;
-    private TextView tv3;
     private TextView available;
-    private Spinner area;
+    private Spinner spCity;
     private Spinner spDistrict;
     private Button btnAddJob;
+    private Button btnCancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_send_invitation);
+        setContentView(R.layout.activity_edit_job);
         initView();
+
 
         getSupportActionBar().hide();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -60,14 +59,12 @@ public class SendInvitationActivity extends AppCompatActivity {
 
         //Dialog
         pd = new ProgressDialog(this);
-        pd.setMessage("جاري الإرسال ...");
+        pd.setMessage("انتظر لحظة ...");
 
         getCity();
 
 
-
-
-        area.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
@@ -102,66 +99,85 @@ public class SendInvitationActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            int empId = bundle.getInt("EmpId");
+
+            int idJob = bundle.getInt("idJob");
+            etTitle.setText(bundle.getString("titleJob"));
+            etDes.setText(bundle.getString("desJob"));
+
             btnAddJob.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
-                    String title = etTitle.getText().toString().trim();
-                    String des = etDes.getText().toString().trim();
-
-
-                    if (title.isEmpty() || des.isEmpty()) {
-                        Toast.makeText(SendInvitationActivity.this, "الرجاء تعبئة جميع البيانات !", Toast.LENGTH_SHORT).show();
-                    } else {
-
-                        addJob(title, des, id_city, id_dis,empId);
-
-                    }
-
+                    editJob(idJob, etTitle.getText().toString(),
+                            etDes.getText().toString(),
+                            id_city, id_dis);
                 }
             });
 
+
+            btnCancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    cancelJob(idJob);
+                }
+            });
+
+
         }
+
+
     }
 
-    private void initView() {
-        tv1 = (TextView) findViewById(R.id.tv_1);
-        etTitle = (EditText) findViewById(R.id.etTitle);
-        tv2 = (TextView) findViewById(R.id.tv_2);
-        etDes = (EditText) findViewById(R.id.etDes);
-        tv3 = (TextView) findViewById(R.id.tv_3);
-        available = (TextView) findViewById(R.id.available);
-        area = (Spinner) findViewById(R.id.area);
-        spDistrict = (Spinner) findViewById(R.id.spDistrict);
-        btnAddJob = (Button) findViewById(R.id.btnAddJob);
-    }
 
-    private void addJob(String title , String des , int city, int dis,int emp_user_id) {
+
+    private void cancelJob(int idJob) {
         pd.show();
         RetrofitClient.getRetrofitInstance()
                 .create(ApiInterface.class)
-                .AddJobInvitation(title,des,city,dis,1,emp_user_id)
+                .jobCancel(idJob)
                 .enqueue(new Callback<MsSaveJob>() {
                     @Override
                     public void onResponse(Call<MsSaveJob> call, Response<MsSaveJob> response) {
 
-                        if (response.isSuccessful()){
-
-                            Toast.makeText(SendInvitationActivity.this, "تم ارسال الدعوة", Toast.LENGTH_SHORT).show();
+                        if (response.isSuccessful()) {
                             pd.dismiss();
-                            startActivity(new Intent(SendInvitationActivity.this,BaseUserActivity.class));
+                            Toast.makeText(EditJobActivity.this, "تم الغاء الوظيفة", Toast.LENGTH_SHORT).show();
                             finish();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<MsSaveJob> call, Throwable t) {
-                        Toast.makeText(SendInvitationActivity.this, "هناك خطأ ما ", Toast.LENGTH_SHORT).show();
-                        pd.dismiss();
+
+                    }
+                });
+
+    }
+
+    private void editJob(int idJob, String title, String des, int id_city, int id_dis) {
+        pd.show();
+        RetrofitClient.getRetrofitInstance()
+                .create(ApiInterface.class)
+                .editJob(idJob, title, des, id_city, id_dis, 1)
+                .enqueue(new Callback<MsSaveJob>() {
+                    @Override
+                    public void onResponse(Call<MsSaveJob> call, Response<MsSaveJob> response) {
+
+                        if (response.isSuccessful()) {
+                            pd.dismiss();
+                            Toast.makeText(EditJobActivity.this, "تم تعديل الوظيفة", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<MsSaveJob> call, Throwable t) {
+
                     }
                 });
     }
+
 
 
     private void getCity() {
@@ -180,8 +196,8 @@ public class SendInvitationActivity extends AppCompatActivity {
 
                                 Log.e("TAG", "City: " + response.body().get(i).getName());
 
-                                adapter = new AdapterCity(SendInvitationActivity.this, list);
-                                area.setAdapter(adapter);
+                                adapter = new AdapterCity(EditJobActivity.this, list);
+                                spCity.setAdapter(adapter);
 
 
                             }
@@ -211,7 +227,7 @@ public class SendInvitationActivity extends AppCompatActivity {
 
                                 Log.e("TAG", "City: " + response.body().get(i).getName());
 
-                                adapterDistrict = new AdapterDistrict(SendInvitationActivity.this, districtList);
+                                adapterDistrict = new AdapterDistrict(EditJobActivity.this, districtList);
                                 spDistrict.setAdapter(adapterDistrict);
 
 
@@ -225,4 +241,16 @@ public class SendInvitationActivity extends AppCompatActivity {
                     }
                 });
     }
+
+
+    private void initView() {
+        etTitle = (EditText) findViewById(R.id.etTitle);
+        etDes = (EditText) findViewById(R.id.etDes);
+        available = (TextView) findViewById(R.id.available);
+        spCity = (Spinner) findViewById(R.id.area);
+        spDistrict = (Spinner) findViewById(R.id.spDistrict);
+        btnAddJob = (Button) findViewById(R.id.btnAddJob);
+        btnCancel = (Button) findViewById(R.id.btnCancel);
+    }
+
 }

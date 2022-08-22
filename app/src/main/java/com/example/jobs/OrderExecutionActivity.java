@@ -143,6 +143,8 @@ public class OrderExecutionActivity extends AppCompatActivity {
 
                             Toast.makeText(OrderExecutionActivity.this, "تم إرسال العرض ", Toast.LENGTH_SHORT).show();
                             pd.dismiss();
+                            startActivity(new Intent(OrderExecutionActivity.this,BaseActivity.class));
+                            finish();
                         }
 
                     }
@@ -203,7 +205,12 @@ public class OrderExecutionActivity extends AppCompatActivity {
                 .enqueue(new Callback<MsSaveJob>() {
                     @Override
                     public void onResponse(Call<MsSaveJob> call, Response<MsSaveJob> response) {
-                        Toast.makeText(OrderExecutionActivity.this, "" + response.body().message, Toast.LENGTH_SHORT).show();
+
+                        if (response.isSuccessful()) {
+                            Toast.makeText(OrderExecutionActivity.this, "" + response.body().message, Toast.LENGTH_SHORT).show();
+                           imgSave.setVisibility(View.INVISIBLE);
+                        }
+
                     }
 
                     @Override

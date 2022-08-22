@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.jobs.adapters.MyPostedJobsAdapter;
 import com.example.jobs.adapters.MyPostedJobsOwnerAdapter;
@@ -49,11 +50,17 @@ public class TalabatyUserFragment extends Fragment {
             }
         });
 
-        getMyPostedJobs();
+
 
         return  v ;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        getMyPostedJobs();
+    }
 
     private void getMyPostedJobs() {
 
@@ -72,6 +79,12 @@ public class TalabatyUserFragment extends Fragment {
                             }
 
                             listJobs = response.body();
+
+                            if (listJobs.size() == 0){
+                                swipRefresh.setRefreshing(false);
+                                Toast.makeText(getContext(), "لا يوجد طلبات حتى الان ", Toast.LENGTH_SHORT).show();
+                            }
+
                             for (int i = 0; i < listJobs.size(); i++) {
 
                                 myPostedJobsAdapter = new MyPostedJobsOwnerAdapter(getContext(), listJobs);

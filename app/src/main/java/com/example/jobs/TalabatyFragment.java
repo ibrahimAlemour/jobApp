@@ -26,10 +26,10 @@ import retrofit2.Response;
 
 public class TalabatyFragment extends Fragment {
 
-    ArrayList<EmpSendTalab> listJobs = new ArrayList<>();
-    private SwipeRefreshLayout swipRefresh;
-    MyPostedJobsAdapter myPostedJobsAdapter;
-    RecyclerView rvJop;
+    public static ArrayList<EmpSendTalab> listJobs = new ArrayList<>();
+    public static SwipeRefreshLayout swipRefresh;
+    public static  MyPostedJobsAdapter myPostedJobsAdapter;
+    public static RecyclerView rvJop;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,6 +48,7 @@ public class TalabatyFragment extends Fragment {
         });
 
         getMyPostedJobs();
+
 
 
         return  v ;
@@ -82,6 +83,52 @@ public class TalabatyFragment extends Fragment {
                             if (listJobs.size() == 0){
                                 swipRefresh.setRefreshing(false);
                                 Toast.makeText(getContext(), "لا يوجد طلبات حتى الان ", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ArrayList<EmpSendTalab>> call, Throwable t) {
+
+                        swipRefresh.setRefreshing(false);
+                        Log.e("MyPostedJobs", "onFailure: "+t.getMessage() );
+
+                    }
+                });
+    }
+
+
+
+    public static  void getMyPostedJobs2() {
+
+        swipRefresh.setRefreshing(true);
+        RetrofitClient.getRetrofitInstance()
+                .create(ApiInterface.class)
+                .getMyJobsEmp()
+                .enqueue(new Callback<ArrayList<EmpSendTalab>>() {
+                    @Override
+                    public void onResponse(Call<ArrayList<EmpSendTalab>> call, Response<ArrayList<EmpSendTalab>> response) {
+
+                        if (response.isSuccessful()) {
+
+                            if (response.body() == null){
+                                swipRefresh.setRefreshing(false);
+                            }
+
+                            listJobs = response.body();
+                            for (int i = 0; i < listJobs.size(); i++) {
+
+                               // myPostedJobsAdapter = new MyPostedJobsAdapter(getContext(), listJobs);
+                                rvJop.setAdapter(myPostedJobsAdapter);
+                                swipRefresh.setRefreshing(false);
+
+
+                            }
+
+                            if (listJobs.size() == 0){
+                                swipRefresh.setRefreshing(false);
+//                                Toast.makeText(getContext(), "لا يوجد طلبات حتى الان ", Toast.LENGTH_SHORT).show();
                             }
 
                         }

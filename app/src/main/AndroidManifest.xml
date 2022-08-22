@@ -7,7 +7,6 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher_logo"
@@ -16,9 +15,11 @@
         android:supportsRtl="false"
         android:theme="@style/Theme.Jobs">
         <activity
+            android:name=".EditJobActivity"
+            android:exported="false" />
+        <activity
             android:name=".ShowDataFromNotificationActivity"
             android:exported="false" />
-
         <activity
             android:name=".EmpInformationActivity"
             android:exported="false" />

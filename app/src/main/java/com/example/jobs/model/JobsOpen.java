@@ -17,6 +17,8 @@ public class JobsOpen {
     public String created_at;
     public String updated_at;
     public boolean is_saved;
+    public int applicants_count;
+    public boolean is_applied_to_job;
     public CityDTO city;
     public DistrictDTO district;
 

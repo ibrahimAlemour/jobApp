@@ -5,17 +5,22 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.jobs.ArchiveFragment;
 import com.example.jobs.R;
+import com.example.jobs.TalabatyFragment;
 import com.example.jobs.api.ApiInterface;
 import com.example.jobs.api.RetrofitClient;
 import com.example.jobs.model.City;
 import com.example.jobs.model.EmpSendTalab;
+import com.example.jobs.model.MsSaveJob;
 
 import java.util.ArrayList;
 
@@ -37,7 +42,7 @@ public class MyPostedJobsAdapter extends RecyclerView.Adapter<MyPostedJobsAdapte
     @Override
     public OpenTalabsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View v = LayoutInflater.from(context).inflate(R.layout.talaby_item , parent , false);
+        View v = LayoutInflater.from(context).inflate(R.layout.talaby_emp_item , parent , false);
         return new OpenTalabsViewHolder(v);
     }
 
@@ -49,7 +54,13 @@ public class MyPostedJobsAdapter extends RecyclerView.Adapter<MyPostedJobsAdapte
         getJopStatus(holder,myJobs.job.job_status_id);
         holder.tvTitle.setText(myJobs.job.title);
 
+        holder.imgDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+                removeJobs(myJobs.job_id);
+            }
+        });
 
         //ArrayList<MyPostedJobs.JobStatusDTO> jobStatusDTOS;
 
@@ -83,6 +94,7 @@ public class MyPostedJobsAdapter extends RecyclerView.Adapter<MyPostedJobsAdapte
     class OpenTalabsViewHolder extends RecyclerView.ViewHolder {
         TextView tvTitle , tvState ;
         Spinner spState;
+        ImageView imgDelete;
 
         public OpenTalabsViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -90,6 +102,7 @@ public class MyPostedJobsAdapter extends RecyclerView.Adapter<MyPostedJobsAdapte
             tvTitle = itemView.findViewById(R.id.tvTitle);
             spState = itemView.findViewById(R.id.spState);
             tvState = itemView.findViewById(R.id.tvState);
+            imgDelete = itemView.findViewById(R.id.imgDelete);
 
 
 
@@ -122,6 +135,37 @@ public class MyPostedJobsAdapter extends RecyclerView.Adapter<MyPostedJobsAdapte
                     @Override
                     public void onFailure(Call<ArrayList<City>> call, Throwable t) {
 
+                    }
+                });
+    }
+
+    private void removeJobs(int id) {
+        TalabatyFragment.swipRefresh.setRefreshing(true);
+        RetrofitClient.getRetrofitInstance()
+                .create(ApiInterface.class)
+                .DeleteJop(id)
+                .enqueue(new Callback<MsSaveJob>() {
+                    @Override
+                    public void onResponse(Call<MsSaveJob> call, Response<MsSaveJob> response) {
+
+                        if (response.isSuccessful() && response != null) {
+
+                            TalabatyFragment.listJobs.clear();
+                            TalabatyFragment.getMyPostedJobs2();
+                            TalabatyFragment.swipRefresh.setRefreshing(false);
+                            TalabatyFragment.myPostedJobsAdapter.notifyDataSetChanged();
+
+
+                            Toast.makeText(context, response.body().message, Toast.LENGTH_SHORT).show();
+                            Log.e("Delete", "onResponse: "+response.body().message );
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<MsSaveJob> call, Throwable t) {
+                        TalabatyFragment.swipRefresh.setRefreshing(false);
+                        Log.e("Delete", "onResponse: "+t.getMessage() );
                     }
                 });
     }

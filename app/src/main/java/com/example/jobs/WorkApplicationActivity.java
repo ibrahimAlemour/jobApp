@@ -97,7 +97,7 @@ public class WorkApplicationActivity extends AppCompatActivity {
 
                             if (listJobs.size() == 0){
                                 swipRefresh.setRefreshing(false);
-                                Toast.makeText(WorkApplicationActivity.this, "لا يوجد طلبات حتى الان ", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(WorkApplicationActivity.this, "لا يوجد متقدمين حتى الان ", Toast.LENGTH_SHORT).show();
                             }
 
                         }
