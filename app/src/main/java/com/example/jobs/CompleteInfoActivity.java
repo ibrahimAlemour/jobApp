@@ -44,7 +44,7 @@ public class CompleteInfoActivity extends AppCompatActivity {
     int id_jobTitle;
     int id_jobType;
     ProgressDialog pd;
-    private CircleImageView imageView;
+    private CircleImageView imgProfile;
     private CircleImageView editProfilePictureButton;
     private Spinner spJobTitle;
     private EditText etDescription;
@@ -54,6 +54,8 @@ public class CompleteInfoActivity extends AppCompatActivity {
     private Button confirmButton;
     private EditText etName;
     private EditText etPhoneNum;
+
+    private EditText etPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -171,13 +173,16 @@ public class CompleteInfoActivity extends AppCompatActivity {
         }
 
 
+
+
     }
 
     private void updateProfile(String name, String phone, String method, String aboutMe, int job_type_id, int job_title_id, int city_id, int district_id, int is_available) {
+
         pd.show();
         RetrofitClient.getRetrofitInstance()
                 .create(ApiInterface.class)
-                .updateProfile(name, phone, method, aboutMe, job_type_id, job_title_id, city_id, district_id, is_available)
+                .updateProfileEmpNormal(name, phone, method, aboutMe, job_type_id, job_title_id, city_id, district_id, is_available)
                 .enqueue(new Callback<User>() {
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
@@ -193,6 +198,9 @@ public class CompleteInfoActivity extends AppCompatActivity {
 
                     }
                 });
+
+
+
     }
 
     private void getJobType() {
@@ -316,7 +324,7 @@ public class CompleteInfoActivity extends AppCompatActivity {
 
 
     private void initView() {
-        imageView = (CircleImageView) findViewById(R.id.imageView);
+        imgProfile = (CircleImageView) findViewById(R.id.imgProfile);
         editProfilePictureButton = (CircleImageView) findViewById(R.id.edit_profile_picture_button);
         spJobTitle = (Spinner) findViewById(R.id.spJobTitle);
         etDescription = (EditText) findViewById(R.id.etDescription);
@@ -326,5 +334,7 @@ public class CompleteInfoActivity extends AppCompatActivity {
         confirmButton = (Button) findViewById(R.id.confirm_button);
         etName = (EditText) findViewById(R.id.etName);
         etPhoneNum = (EditText) findViewById(R.id.etPhoneNum);
+        etPath = (EditText) findViewById(R.id.etPath);
     }
+
 }

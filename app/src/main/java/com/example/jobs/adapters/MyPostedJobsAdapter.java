@@ -1,19 +1,27 @@
 package com.example.jobs.adapters;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jobs.ArchiveFragment;
+import com.example.jobs.EditJobActivity;
 import com.example.jobs.R;
 import com.example.jobs.TalabatyFragment;
 import com.example.jobs.api.ApiInterface;
@@ -62,26 +70,18 @@ public class MyPostedJobsAdapter extends RecyclerView.Adapter<MyPostedJobsAdapte
             }
         });
 
-        //ArrayList<MyPostedJobs.JobStatusDTO> jobStatusDTOS;
+        holder.btnDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                showCustomDialog(myJobs.description,myJobs.price,myJobs.id);
+            }
+        });
+
 
         Log.e("JopState", "onBindViewHolder: "+myJobs.job.job_status_id );
 
-//        holder.container.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                Intent intent = new Intent(context, OrderExecutionActivity.class);
-//                intent.putExtra("id",ss.id);
-//                intent.putExtra("user_id",ss.user_id);
-//                intent.putExtra("title",ss.title);
-//                intent.putExtra("description",ss.description);
-//                intent.putExtra("city",ss.city.name);
-//                intent.putExtra("district",ss.district.name);
-//                intent.putExtra("is_saved",ss.is_saved);
-//                context.startActivity(intent);
-//
-//            }
-//        });
+
 
     }
 
@@ -95,6 +95,7 @@ public class MyPostedJobsAdapter extends RecyclerView.Adapter<MyPostedJobsAdapte
         TextView tvTitle , tvState ;
         Spinner spState;
         ImageView imgDelete;
+        AppCompatButton btnDialog;
 
         public OpenTalabsViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -103,6 +104,7 @@ public class MyPostedJobsAdapter extends RecyclerView.Adapter<MyPostedJobsAdapte
             spState = itemView.findViewById(R.id.spState);
             tvState = itemView.findViewById(R.id.tvState);
             imgDelete = itemView.findViewById(R.id.imgDelete);
+            btnDialog = itemView.findViewById(R.id.btnDialog);
 
 
 
@@ -126,6 +128,11 @@ public class MyPostedJobsAdapter extends RecyclerView.Adapter<MyPostedJobsAdapte
 
                                 if (list.get(i).getId() == idStatus ){
                                     holder.tvState.setText(list.get(i).getName());
+                                    if (list.get(i).getName().contains("قيد التنفيذ") || list.get(i).getName().contains("منتهية")
+                                            || list.get(i).getName().contains("ملغيه")
+                                    ){
+                                        holder.btnDialog.setVisibility(View.GONE);
+                                    }
                                 }
                             }
 
@@ -169,5 +176,73 @@ public class MyPostedJobsAdapter extends RecyclerView.Adapter<MyPostedJobsAdapte
                     }
                 });
     }
+
+
+    void showCustomDialog(String description , int price , int idJob) {
+
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(true);
+        dialog.setContentView(R.layout.edit_job_dialog);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        final EditText etDescription = dialog.findViewById(R.id.etTitle);
+        final EditText etPrice = dialog.findViewById(R.id.etPrice);
+        AppCompatButton btnSave = dialog.findViewById(R.id.btnSave);
+
+        etDescription.setText(description);
+        etPrice.setText(price+"");
+
+
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String descriptionLast = etDescription.getText().toString().trim();
+                int priceLast = Integer.parseInt(etPrice.getText().toString());
+
+                editJob(idJob,descriptionLast,priceLast);
+                dialog.dismiss();
+
+                //Toast.makeText(context, "تم تعديل العرض ", Toast.LENGTH_SHORT).show();
+
+
+            }
+        });
+
+
+        dialog.show();
+    }
+
+
+    private void editJob(int idJob, String description, int price) {
+
+        RetrofitClient.getRetrofitInstance()
+                .create(ApiInterface.class)
+                .editJobEmp(idJob,description,price)
+                .enqueue(new Callback<MsSaveJob>() {
+                    @Override
+                    public void onResponse(Call<MsSaveJob> call, Response<MsSaveJob> response) {
+
+                        if (response.isSuccessful()) {
+
+                            TalabatyFragment.getMyPostedJobs2();
+                            TalabatyFragment.myPostedJobsAdapter.notifyDataSetChanged();
+
+                            Toast.makeText(context, response.body().message, Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<MsSaveJob> call, Throwable t) {
+
+                        Log.e("EditJobEmp", "onFailure: "+t.getMessage() );
+                    }
+                });
+    }
+
+
+
 
 }

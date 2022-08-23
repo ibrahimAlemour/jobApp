@@ -15,6 +15,10 @@
         android:supportsRtl="false"
         android:theme="@style/Theme.Jobs">
         <activity
+            android:name=".SendInvitationActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".EditJobActivity"
             android:exported="false" />
         <activity

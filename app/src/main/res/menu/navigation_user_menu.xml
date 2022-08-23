@@ -8,6 +8,11 @@
         android:icon="@drawable/ic_baseline_home"
         android:id="@+id/homeuserFragment"/>
 
+    <item
+        android:title="الإشعارات"
+        android:icon="@drawable/ic_notif"
+        android:id="@+id/notyFragment"/>
+
 
     <item
         android:id="@+id/addWork"

@@ -54,7 +54,7 @@ public class TalabatyFragment extends Fragment {
         return  v ;
     }
 
-    private void getMyPostedJobs() {
+    private  void getMyPostedJobs() {
 
         swipRefresh.setRefreshing(true);
         RetrofitClient.getRetrofitInstance()
@@ -119,7 +119,7 @@ public class TalabatyFragment extends Fragment {
                             listJobs = response.body();
                             for (int i = 0; i < listJobs.size(); i++) {
 
-                               // myPostedJobsAdapter = new MyPostedJobsAdapter(getContext(), listJobs);
+                                myPostedJobsAdapter = new MyPostedJobsAdapter(rvJop.getContext(), listJobs);
                                 rvJop.setAdapter(myPostedJobsAdapter);
                                 swipRefresh.setRefreshing(false);
 

@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,7 +17,6 @@ import com.example.jobs.ShowDataFromNotificationActivity;
 import com.example.jobs.api.ApiInterface;
 import com.example.jobs.api.RetrofitClient;
 import com.example.jobs.model.Notifications;
-import com.example.jobs.model.Notify;
 import com.example.jobs.model.UserProfile;
 
 import java.util.ArrayList;
@@ -27,12 +25,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdapter.NotifyViewHolder> {
+public class NotificationsOwnerAdapter extends RecyclerView.Adapter<NotificationsOwnerAdapter.NotifyViewHolder> {
 
     Context context;
     ArrayList<Notifications> notifications;
 
-    public NotificationsAdapter(Context context, ArrayList<Notifications> notifies) {
+    public NotificationsOwnerAdapter(Context context, ArrayList<Notifications> notifies) {
         this.context = context;
         this.notifications = notifies;
     }
@@ -54,16 +52,6 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
         getUserById(holder, notification.user_id);
         holder.text_tv.setText(notification.subject);
 
-
-            holder.container.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    Intent intent = new Intent(context, ShowDataFromNotificationActivity.class);
-                    intent.putExtra("jobId",notification.data);
-                    context.startActivity(intent);
-                }
-            });
 
 
 

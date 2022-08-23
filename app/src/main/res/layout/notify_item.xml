@@ -29,6 +29,17 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/tvTypeUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="..."
+            android:visibility="gone"
+            android:textColor="@color/purple_700"
+            android:gravity="right"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
             android:id="@+id/notify_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
